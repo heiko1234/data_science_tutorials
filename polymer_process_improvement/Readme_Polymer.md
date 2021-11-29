@@ -1,5 +1,5 @@
 
-# Szenario
+# Szenario Polymer Improvement
 
 You work as Data Scientist in a chemical compony that produces white plastic granulate and supplies it to a molding plant, where it is made into white plastic die castings.
 
@@ -75,5 +75,61 @@ You have contact to:
 
 
 ## Crisis
+
+Crisis happens regularly and the sequence of this events are very similar.
+
+
+1. Normal Operation for several month without any problems
+2. Recognize a problem with flowability
+3. Checking down-stream process parameteres
+4. Checking quality of the starting polymer, which is in specification
+5. Checking testing equipment
+6. Assume that down-stream process has changed
+7. After a few days of bad production, ask for different polymer as trail run
+8. Fresh restart of down-stream process (molding plant): 
+    - empty polymer silos
+    - purged material is sold as scrap, with a low price and lowers the yield
+    - output of down-stream process far behind schedule and customers ask for compensations.
+
+### Theories
+
+- the filler supplier is inconsistent and should be replaced
+- the filler is not well distributed through the polymer and agglomerates are blocking the flow channels in the molds
+- Heavy rain has an effect on the pH of the water supply, which will affect the polymerization reaction
+- MFI specification is to high, so batches of polymer at the bottom end of the specification range should be the only one used
+- abnormal ambient temperatures and humidit are blamed to have a negative effect to the polymer
+
+Process changes are made, trials are run and data are gathered. But none of the changes ever conclusively solve the problem. 
+The problem goes away and each project team so far improved the process gradually and convinced that their solution was making the difference until the next crisis.
+
+
+## Framing the Problem
+
+Although there is a polymer specification, it is assumed that this does not fully reflect the true requirements.
+
+After a few discussions, these KPIs are selected to concentrate on:
+
+- MFI: melt flow index
+- CI: color index
+- Yield: good polymer / total polymer
+    - good polymer: successfully processed by the down-stream plant
+    - total polymer: sum of polymer
+
+### Historical Data
+
+The project team collects historical data on daily yield. 
+The Data contain `Date` and `Yield` and can be found [here](./data/BaselineYieldData.csv).
+
+We have a short check on the data using `numpy`, `pandas` and `plotly`. 
+You can have a look on the [baseline_analysis.py](./source/baseline_analysis.py).
+
+Create a chart that clearly shows the periods of high yields. 
+
+The average Yield over the time period is about 88 % but filtering the values that are below 85.0% result in a average Yield of 94 %.
+
+## Next steps
+
+Now, we can continue with the next phase of the project.
+Please open [part2]
 
 
