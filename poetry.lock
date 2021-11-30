@@ -114,14 +114,6 @@ ssh = ["paramiko (>=2.4.2)"]
 tls = ["pyOpenSSL (>=17.5.0)", "cryptography (>=3.4.7)", "idna (>=2.0.0)"]
 
 [[package]]
-name = "docopt"
-version = "0.6.2"
-description = "Pythonic argument parser, that will make you smile"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "entrypoints"
 version = "0.3"
 description = "Discover and load entry points from installed packages."
@@ -159,22 +151,6 @@ Werkzeug = ">=2.0"
 [package.extras]
 async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
-
-[[package]]
-name = "gaugernr"
-version = "0.6.0"
-description = "A simple library for calculating Gauge RnR"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-docopt = "*"
-numpy = "*"
-plotly = "*"
-scipy = "*"
-statsmodels = "*"
-tabulate = "*"
 
 [[package]]
 name = "gitdb"
@@ -311,7 +287,7 @@ python-versions = "*"
 
 [[package]]
 name = "mlflow"
-version = "1.21.0"
+version = "1.22.0"
 description = "MLflow: A Platform for ML Development and Productionization"
 category = "main"
 optional = false
@@ -343,7 +319,7 @@ waitress = {version = "*", markers = "platform_system == \"Windows\""}
 
 [package.extras]
 aliyun_oss = ["aliyunstoreplugin"]
-extras = ["scikit-learn", "pyarrow", "boto3", "google-cloud-storage", "azureml-core (>=1.2.0)", "pysftp", "kubernetes"]
+extras = ["scikit-learn", "pyarrow", "boto3", "google-cloud-storage", "azureml-core (>=1.2.0)", "pysftp", "kubernetes", "mlserver (>=0.5.3)", "mlserver-mlflow (>=0.5.3)"]
 sqlserver = ["mlflow-dbstore"]
 
 [[package]]
@@ -816,7 +792,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8, <3.9"
-content-hash = "734b817c995f7420d14f710cce6442407faab53d2bbc49e7a1ce9caf8f974dd7"
+content-hash = "347c314527ecdf3c2892cdcad05390428cbe2cc05f84ce9f8f920b4b16fd6ca9"
 
 [metadata.files]
 alembic = [
@@ -854,9 +830,6 @@ docker = [
     {file = "docker-5.0.3-py2.py3-none-any.whl", hash = "sha256:7a79bb439e3df59d0a72621775d600bc8bc8b422d285824cb37103eab91d1ce0"},
     {file = "docker-5.0.3.tar.gz", hash = "sha256:d916a26b62970e7c2f554110ed6af04c7ccff8e9f81ad17d0d40c75637e227fb"},
 ]
-docopt = [
-    {file = "docopt-0.6.2.tar.gz", hash = "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"},
-]
 entrypoints = [
     {file = "entrypoints-0.3-py2.py3-none-any.whl", hash = "sha256:589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19"},
     {file = "entrypoints-0.3.tar.gz", hash = "sha256:c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451"},
@@ -868,10 +841,6 @@ flake8 = [
 flask = [
     {file = "Flask-2.0.2-py3-none-any.whl", hash = "sha256:cb90f62f1d8e4dc4621f52106613488b5ba826b2e1e10a33eac92f723093ab6a"},
     {file = "Flask-2.0.2.tar.gz", hash = "sha256:7b2fb8e934ddd50731893bdcdb00fc8c0315916f9fcd50d22c7cc1a95ab634e2"},
-]
-gaugernr = [
-    {file = "GaugeRnR-0.6.0-py3-none-any.whl", hash = "sha256:6421bcf0870d9a6a20c890cf964039e7849d0d518b60845c0a0f2a172c1cf09e"},
-    {file = "GaugeRnR-0.6.0.tar.gz", hash = "sha256:179b44c3ab42b38ee1512421af21bcb446cb554317814cfd8bc5201b5513e469"},
 ]
 gitdb = [
     {file = "gitdb-4.0.9-py3-none-any.whl", hash = "sha256:8033ad4e853066ba6ca92050b9df2f89301b8fc8bf7e9324d412a63f8bf1a8fd"},
@@ -1037,8 +1006,8 @@ mccabe = [
     {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
 ]
 mlflow = [
-    {file = "mlflow-1.21.0-py3-none-any.whl", hash = "sha256:cbc7394e9ee0f6b448224b5f59c6f00ba004397ffb9c9b7361ded0c5c8a1d089"},
-    {file = "mlflow-1.21.0.tar.gz", hash = "sha256:5524a371f19c66a18e7ebe9b1085a77f63a6ae514271e487428f28187d79fc8f"},
+    {file = "mlflow-1.22.0-py3-none-any.whl", hash = "sha256:6674cef7e3e48677cb2a6ea9f74777b336464ebfabbb60ff15d85d2906f10330"},
+    {file = "mlflow-1.22.0.tar.gz", hash = "sha256:f680390715e436ae38cf7056ec91030fc9eb67cc631226f28ff9504fbe395add"},
 ]
 mypy-extensions = [
     {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
