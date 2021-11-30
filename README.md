@@ -33,6 +33,10 @@ Step by step we will grow our tool stack.
 - [pricing_management_of_chemical_supplier]
 
 
+# Literatur used:
 
+- Visual Six Sigma, Second Edition, Wiley, 2016, Cox, Gaudard, Stephens, ISBN: 976-1-118-90568-5  
+
+- Beginning MLOps with MLFlow: Deploy Models in AWS SageMaker, Google Cloud and Microsoft Azure, Apress, 2020, Alla, Adari, ISBN: 978-1484265482
 
 

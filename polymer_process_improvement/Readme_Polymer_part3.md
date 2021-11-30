@@ -25,7 +25,7 @@ The MFI is measured with a melt flow meter in an offline laboratory test.
 - 4 instruments are available to do this test.
 - 3 different laboratory technicicals can run this test
 - No formal calibration is done for the instruments
-- You have the impression that ther is no common, standard procedure to run the test
+- You have the impression that there is no common, standard procedure to run the test
 
 Having a deeper look into the MFI measurement, thats limits are 198 and 192, 10 % of tolerance range for this measurement is 0.10 x (198 - 192) = 0.6 MFI units.
 A highly capable measurment system should not exceed 10 percent of the part-to-part (or batch-to-batch) variablity.
@@ -48,7 +48,10 @@ Calculating the needed tests:
 Since a test is destructive a sample from a given batch of polymer needs to be divided into 24 aliquots for testing. 
 To run 3 tests per hour using 3 of 4 instruments lead to an estimation of 24 hours for the MSA, which could be handled with in 5 working days
 
-### You design a simple DOE experiment plan, that you can find [here](./polymer_process_improvement/source/DOE.py) and give it to the technicans and lab leaders to do the experiments for you.
+
+## DOE Design for MFI
+
+### You design a simple DOE experiment plan, that you can find [here](./polymer_process_improvement/source/DOE.py) and give it to the technicans and lab leaders to do the experiments for you.  
 
 The DOE experimental plan is randomized and you stress the technicans that it is important of running these experiments in this order. The technicans accept and do the them over the next week and enter their results into the data table.
 
