@@ -56,7 +56,7 @@ To run 3 tests per hour using 3 of 4 instruments lead to an estimation of 24 hou
 The DOE experimental plan is randomized and you stress the technicans that it is important of running these experiments in this order. The technicans accept and do the them over the next week and enter their results into the data table.
 
 
-
+[Gage R&R](https://sixsigmastudyguide.com/repeatability-and-reproducibility-rr/)
 
 
 
