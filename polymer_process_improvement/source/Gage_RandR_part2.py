@@ -150,10 +150,10 @@ def gagernr(data, operator=None, instrument = None, part= None, result=None):
         sigma_operator = (anova_table.loc[f"C({operator})","mse_sq"] - anova_table.loc[f"C({operator}):C({part})","mse_sq"] ) / (num_parts * num_repeats)
     else: 
         sigma_operator = (anova_table.loc[f"C({operator})","mse_sq"] - anova_table.loc[f"C({operator}):C({part})","mse_sq"] - anova_table.loc[f"C({operator}):C({instrument})","mse_sq"]  ) / num_parts * num_repeats #*num_instruments)
-    sigma_operator  #0.09911
+    sigma_operator= abs(sigma_operator)  #0.09911
 
 
-    sigma_interactions = sigma_interaction(anova_table, operator, instrument, part, num_parts, num_instruments)
+    sigma_interactions = abs(sigma_interaction(anova_table, operator, instrument, part, num_parts, num_instruments))
     sigma_interactions
 
     sigma_reproducable = sigma_operator+sigma_interactions
@@ -201,14 +201,14 @@ def gagernr(data, operator=None, instrument = None, part= None, result=None):
 
 #########
 
-data = pd.read_csv("./polymer_process_improvement/data/MSA_MFI_initial.csv")
+data = pd.read_csv("./polymer_process_improvement/data/MSA_MFI_Final.csv")
 data
 
-data = data.iloc[:,2:]
+# data = data.iloc[:,2:]
 data 
 
 
-operator = "Technician"
+operator = "Operator"
 instrument = "Instrument"
 part = "Batch"
 result = "MFI"
@@ -216,10 +216,10 @@ result = "MFI"
 
 ##########
 
-data = pd.read_csv("./polymer_process_improvement/data/MSA_Xf_initial.csv")
+data = pd.read_csv("./polymer_process_improvement/data/MSA_Xf_Final.csv")
 data
 
-data = data.iloc[:,1:]
+#data = data.iloc[:,1:]
 data 
 
 

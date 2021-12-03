@@ -56,13 +56,63 @@ To run 3 tests per hour using 3 of 4 instruments lead to an estimation of 24 hou
 The DOE experimental plan is randomized and you stress the technicans that it is important of running these experiments in this order. The technicans accept and do the them over the next week and enter their results into the data table.
 
 
-[Gage R&R](https://sixsigmastudyguide.com/repeatability-and-reproducibility-rr/)
+The average of the 3 batches once for each instrument and once for each technician is created.
+
+![average_instrument](./schema/average_instrument.jpg)
+
+![average_technician](./schema/average_technician.jpg)
+
+It seems to haave an interaction between Instrument and Batch.The instruments sem to sho a difference cross the batches. Instrument C seem to give higher values for Batch 2 and 3 than expectd on the first measurement.
+
+The technician plot suggest that *Klaus* s measurements hve higher MFI values thn *Hans*. So, there is a diffence of more than 0.5 MFI units.
 
 
+[Here](https://sixsigmastudyguide.com/repeatability-and-reproducibility-rr/) you find some informations about the Theory behind Six Sigma Gage R&R.
 
 
+To interprete these data we will use an gage r&r (six sigma approach): 
 
+```bash
+                                repeatabilit
+                                |
+                    gage r & r--|               operator
+                    |           |               |
+total variability --|           reproduibility--|
+                    |                           |
+                    part-to-part                interaction
 
+```
+
+When using the [Gage_RnR](./source/Gage_RandR.py) we can generate the graphics but also this table: 
+
+```bash
+
+                    names  variations  percent of total
+0                Gage R&R    2.697313            89.199
+1           Repeatability    0.921968            30.489
+2         Reproducibility    1.775345            58.710
+3   Interaction Variation    0.189567             6.269
+4  part-to-part Variation    0.137052             4.532
+5         Total Variation    3.023932           100.000
+
+```
+
+**Repeatablity**: Repeated easurements of the same part by the same operator with the same instruments
+
+**Reproducibility**: Repeated measurements of the same part by different operators using different instruments
+
+**part-to-part Variation**: Differences in the parts used in the MSA: here parts are represented by batches
+
+**Interaction Variation**: Differences due to the interaction components. Here the interaction components are *Operator x Instrument*, *Operator x Batch* and *Instrument x Batch*.
+
+It can be seen that the Gage R&R component is very large compared to the product variation (part-to-part) variance. This suggests that the measurement system has difficuty distinguishing batches.
+A control chart monitoring this process is mainly monitoring measurement variation. 
+
+The *Batch* variation accounts only for only ca. 4% of the total variation.
+
+Recalling that the measurement system range, measured as six standard deviations should take up at most 10 % of the tolerance range, which is 10 % x (198 - 192) = 0.6 MFI units.
+
+The standard deviation of the measurement system is about 1.34 x 6 = 8.06 MFI units which is much higher than the expected 0.6 MFI units.
 
 
 
