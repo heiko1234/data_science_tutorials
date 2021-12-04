@@ -8,6 +8,10 @@ import plotly.express as px
 
 data = pd.read_csv("./polymer_process_improvement/data/CrisisTeamData.csv", sep=",")
 
+data = pd.read_csv("./polymer_process_improvement/data/VSSTamData.csv", sep=",")
+
+
+
 data.head()
 
 data.dtypes
@@ -51,5 +55,7 @@ data
 data.to_csv("./polymer_process_improvement/data/CrisisTeamData.csv")
 
 
+
+data.to_csv("./polymer_process_improvement/data/VSSTamData.csv")
 
 

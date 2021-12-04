@@ -6,6 +6,10 @@ import numpy as np
 data = pd.read_csv("./polymer_process_improvement/data/MSA_MFI_initial.csv")
 
 
+data = pd.read_csv("./polymer_process_improvement/data/VSSTamData.csv")
+
+
+
 data
 
 
