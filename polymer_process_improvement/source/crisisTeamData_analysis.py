@@ -107,6 +107,10 @@ MFI_model = get_mlflow_model(model_name="MFI_polymer", azure=True, model_dir=Non
 CI_model = get_mlflow_model(model_name="CI_polymer", azure=True, model_dir=None)
 
 
+
+
+### Do somethng with the model
+
 for cname in data.columns:
     try:
         data[cname] = data[cname].astype("float32")
@@ -169,9 +173,7 @@ def loss_MFI_function(target, X):
 # loss_MFI_function(target=205, X=[2, 10, 60])  #3.176
 
 
-from polymer_process_improvement.source.setpoint_suggestion_genopt import (
-    genetic_algorithm,
-)
+from polymer_process_improvement.source.setpoint_suggestion_genopt import (genetic_algorithm)
 
 
 bounds_dict = {

@@ -16,7 +16,8 @@ def decode(bounds, n_bits, bitstring):
         # convert string to integer
         integer = int(chars, 2)
         # scale integer to desired range
-        value = bounds[i][0] + (integer / largest) * (bounds[i][1] - bounds[i][0])
+        ratio = integer / largest
+        value = bounds[i][0] + ratio * (bounds[i][1] - bounds[i][0])
         # store
         decoded.append(value)
     return decoded
@@ -64,11 +65,34 @@ def genetic_algorithm(
     break_accuracy=0.005,
     digits=5,
     n_bits=16,
-    n_iter=199,
+    n_iter=100,
     n_pop=100,
     r_cross=0.9,
     r_mut=None,
 ):
+    """genetic algorithm will compute on the objectiv loss function
+    and given bounds for the features in the loss function a suggestion
+    for new values for the model or loss function
+
+    Args:
+        objective ([function]): a loss function
+        target ([number]): target value to optimize for
+        bounds ([list]): a list for lower and upper limits
+        break_accuracy (float): Min Difference to break,
+        Defaults to 0.005.
+        digits (int): number of digits for solution
+        displayed Defaults to 5.
+        n_bits (int): number of bits for a number. Defaults to 16.
+        n_iter (int): number for iterations. Defaults to 100.
+        n_pop (int): number of solutions test per iteration.
+        Defaults to 100.
+        r_cross (float): value for intercrossing. Defaults to 0.9.
+        r_mut ([type]): value for mutations.
+        Defaults to None: r_mut = 1.0 / (float(n_bits) * len(bounds))
+
+    Returns:
+        [type]: [description]
+    """
     if r_mut is None and bounds is not None:
         r_mut = 1.0 / (float(n_bits) * len(bounds))
     else:
@@ -93,7 +117,8 @@ def genetic_algorithm(
                     best, best_eval = pop[i], scores[i]
                     # print(">%d, new best f(%s) =
                     # %f" % (gen, decoded[i], scores[i]))
-                    print(f">{gen}, new best {decoded[i]} = {scores[i][0]}")
+                    rs = round(scores[i][0], digits)
+                    print(f">{gen}, new best {decoded[i]} = {rs}")
             # select parents
             selected = [selection(pop, scores) for _ in range(n_pop)]
             # create the next generation
