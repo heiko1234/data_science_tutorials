@@ -155,22 +155,46 @@ create_df_testing(M_per = 1, Xf = 1, SA = 1)
 
 
 
-M_per = 1  #0 . 3.6
-Xf = 10   # 9.6 . 22.2
-SA = 61   # 50.1 . 79.7
-target = 200 
-imodel = MFI_model
-features = [M_per, Xf, SA]
-idata = create_df_testing(1,1,1)
 
 
-diff = target - imodel.predict(idata)[0]
-diff
+# objective function
+def loss_MFI_function(target, X):
+    model = MFI_model
+    M_per=X[0]
+    Xf=X[1]
+    SA=X[2]
+    idata = create_df_testing(M_per, Xf, SA)
+    modeloutput = model.predict(idata)
+    diff = abs(target-modeloutput)
+    return diff
 
 
-# function for prediction: ml-model
-# inputs to be modified
-# optimizer
-# https://machinelearningmastery.com/simple-genetic-algorithm-from-scratch-in-python/
+# loss_MFI_function(target=205, X=[2, 10, 60])  #3.176
+
+
+def create_bounds_list(names_order, bounds_dict):
+    return [bounds_dict[element] for element in names_order]
+
+
+
+from polymer_process_improvement.source.setpoint_suggestion_genopt import genetic_algorithm
+
+
+bounds_dict = {"Xf": [9.6, 22.2], "SA": [50.1, 79.7], "M_per": [0, 3.6]}   #out of mlflow
+create_df_testing_cnames = ["M_per", "Xf", "SA"]
+
+
+bounds = create_bounds_list(create_df_testing_cnames, bounds_dict)
+
+target = 204
+
+
+new_setpoints = genetic_algorithm(objective=loss_MFI_function, target=target, bounds =bounds, break_accuracy=0.005, n_bits=16, n_iter=100, n_pop=100, r_cross=0.9, r_mut=None)
+#new_setpoints
+
+MFI_model.predict(create_df_testing(M_per = new_setpoints[0], Xf = new_setpoints[1], SA= new_setpoints[2]))[0]
+
+
+
 
 
