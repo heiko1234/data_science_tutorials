@@ -37,7 +37,7 @@ def _clean_chunks(original, modified, segment_len):
     return results
 
 
-def apply_rules(original, rules="all", chart_type=1):
+def apply_rules(original, rules="all"):
     mean = original.mean()
     sigma = original.std()
     if rules == "all":
@@ -45,8 +45,8 @@ def apply_rules(original, rules="all", chart_type=1):
     df = pd.DataFrame(original)
     for i in range(len(rules)):
         df[rules[i].__name__] = rules[i](original, mean, sigma)
-    fig = plot_rules(df, chart_type)
-    return df, fig
+
+    return df
 
 
 def rule1(original, mean=None, sigma=None):
