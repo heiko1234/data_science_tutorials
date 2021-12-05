@@ -87,3 +87,4 @@ The gage R&R shows a high significance on the part-to-part variance, showing tha
 
 ```
 
+[Part5](./Readme_Polymer_part5.md)

@@ -133,3 +133,4 @@ Now, we can continue with the next phase of the project.
 Please open [part2]
 
 
+[Part2](./Readme_Polymer_part2.md)

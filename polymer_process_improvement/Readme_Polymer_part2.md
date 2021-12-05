@@ -66,5 +66,5 @@ You talk to your Team and you decide to have a deeper look into systematic varia
 
 
 
-## Continue with Part 3: MSA
+[Part3](./Readme_Polymer_part3.md)
 
