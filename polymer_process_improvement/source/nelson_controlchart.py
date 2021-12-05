@@ -373,7 +373,3 @@ def control_chart(data, y_name, xlabel = None, title = "Controlchart", lsl = Non
     fig.show()
 
 
-
-# control_chart(data=data, y_name="CI", xlabel = None, title = "Controlchart", lsl = None, usl = None, outlier = True, lines= True, mean = None, sigma = None)
-
-# info_SPCrules(3)

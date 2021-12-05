@@ -23,6 +23,10 @@ After a few test runs you and your team realizes that the process vary around an
 Very old fashin but still useful are control charts to verify the process improvements from the old process to the process with new and very narrowed setpoints of SA and Xf and the monitoring of MFI and CI.
 
 
+![Controlchart](./schema/Controlchart.jpg)
+
+To create the controlchart use [this](./source/apply_controlcharts.py)
+
 ## Project Summary
 
 The original project goal was to eliminate the periods of crisis with a goal of achieving a yiled rate of 95 %. 
