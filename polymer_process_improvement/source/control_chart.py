@@ -1,6 +1,5 @@
 
 
-import plotly
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
@@ -194,18 +193,12 @@ def simple_controlchart(data, y_name, target=None, xlabel=None, Phase=None, Phas
 
 
 
-data
 
-y_name = "CI"
-xlabel = "Batch Nummer"
-title = "CI"
-Phases="Phase"
+# simple_controlchart(data=data, y_name="MFI", xlabel=None, Phase="Phase", Phasesinplot= True, Outlier = True, plotlimit=True)
 
+# simple_controlchart(data=data, y_name="CI", xlabel=None, Phase="Phase", Phasesinplot= True, Outlier = True, plotlimit=True)
 
-simple_controlchart(data=data, y_name="MFI", xlabel=None, Phase=None, Phasesinplot= True, Outlier = True, plotlimit=True)
-
-
-simple_controlchart(data=data, y_name="MFI", xlabel=None, Phase=None, Phasesinplot= True, Outlier = True, plotlimit=False)
+# simple_controlchart(data=data, y_name="MFI", xlabel=None, Phase=None, Phasesinplot= True, Outlier = True, plotlimit=False)
 
 
 
