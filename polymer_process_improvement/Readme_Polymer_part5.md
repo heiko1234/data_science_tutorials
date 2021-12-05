@@ -129,7 +129,7 @@ We like to use the model to make a suggestion for setpoint on:
 - "SA"
 
 
-We use a genetic optimizer and create a loss function for our problem. The loss function contains the MFI model.
+We use and modify a [genetic](https://machinelearningmastery.com/simple-genetic-algorithm-from-scratch-in-python/) optimizer and create a loss function for our problem. The loss function contains the MFI model.
 
 ```bash
 
