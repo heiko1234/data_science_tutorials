@@ -117,7 +117,7 @@ Wau, we have a model that makes good predictin at least for MFI (CI we do later)
 
 Now, we like to get a set of optimal inputs for our target output, MFI. 
 
-Our Target requirements from the project start ([Readme_part2](./Readme_Polymer_part2.md)
+Our Target requirements from the project start [Readme_part2](./Readme_Polymer_part2.md)
 
 - MFI between 192 - 198 (target: 195)
 - maximum possible CI value is 100, but CI must exceed a lower specification limit of 80
