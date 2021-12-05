@@ -290,7 +290,7 @@ new_setpoints = genetic_algorithm(
     r_cross=0.9,
     r_mut=None,
 )
-new_setpoints  #0.22148, 14.188, 70,318
+new_setpoints # 1.614, 17.87, 65.15  #0.22148, 14.188, 70,318
 
 
 
@@ -300,7 +300,7 @@ MFI_model.predict(create_df_testing(M_per=new_setpoints[0], Xf=new_setpoints[1],
 CI_model.predict(create_df_testing(M_per=new_setpoints[0], Xf=new_setpoints[1], SA=new_setpoints[2]))[0]
 #CI = 98.4
 
-new_setpoints= [0, 15.07, 79.7]
+new_setpoints= [1.614, 17.87, 65.15]
 loss_MFI_function(target=[196, 90], X =new_setpoints)
 
 MFI_model.predict(create_df_testing(M_per=new_setpoints[0], Xf=new_setpoints[1], SA=new_setpoints[2]))[0]
