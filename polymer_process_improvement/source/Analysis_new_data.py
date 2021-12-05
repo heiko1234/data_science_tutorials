@@ -37,13 +37,14 @@ def get_mlflow_model(model_name, azure=True, model_dir="/model/"):
 
 def create_df_testing(M_per=1, Xf=1, SA=1):
 
-    SA2 = SA * SA
-    SA3 = SA * SA * SA
-    Xf2 = Xf * Xf
-    data_list = [[M_per, Xf, SA, SA2, SA3, Xf2]]
+    SA2 = SA**2
+    SA3 = SA**3
+    Xf2 = Xf**2
+    Xf3 = Xf**3
+    data_list = [[M_per, Xf, SA, SA2, SA3, Xf2, Xf3]]
 
     data = pd.DataFrame(
-        data=data_list, columns=["M%", "Xf", "SA", "SASA", "SASASA", "XfXf"]
+        data=data_list, columns=["M%", "Xf", "SA", "SASA", "SASASA", "XfXf", "XfXfXf"]
     )
 
     for cname in data.columns:
@@ -74,6 +75,7 @@ data = data.iloc[:, 1:]
 data["SASA"] = data["SA"] ** 2
 data["SASASA"] = data["SA"] ** 3
 data["XfXf"] = data["Xf"] ** 2
+data["XfXfXf"] = data["Xf"] ** 3
 
 data_filtered = data[data["Yield"] >= 55.0]
 
@@ -87,7 +89,7 @@ data.loc[data["Yield"] <= 55.0, "select"] = 1
 data
 
 #
-(data["MFI"] < 192) | (data["CI"] < 80)
+list((data["MFI"] < 192) | (data["CI"] < 80))
 
 #
 data.loc[data["MFI"] < 192, "select"] = 1
@@ -224,7 +226,7 @@ create_df_testing_cnames = ["M_per", "Xf", "SA"]
 
 bounds = create_bounds_list(create_df_testing_cnames, bounds_dict)
 
-target = 199
+target = 196
 
 
 new_setpoints = genetic_algorithm(
@@ -244,6 +246,63 @@ new_setpoints
 MFI_model.predict(create_df_testing(M_per=new_setpoints[0], Xf=new_setpoints[1], SA=new_setpoints[2]))[0]
 
 
+####
+
+# Mutli parameter
+
+# objective function
+def loss_MFI_function(target, X):
+
+    M_per = X[0]
+    Xf = X[1]
+    SA = X[2]
+    idata = create_df_testing(M_per, Xf, SA)
+    modeloutput_MFI = MFI_model.predict(idata)
+    modeloutput_CI = CI_model.predict(idata)
+
+    diff = abs(target[0] - modeloutput_MFI)
+    diff2 = abs(target[1] - modeloutput_CI)
+    return 2*diff+diff2
 
 
+bounds_dict = {
+    "Xf": [13.45, 18.4],
+    "SA": [52, 79.7],
+    "M_per": [0, 3.6],
+}  # out of mlflow
+create_df_testing_cnames = ["M_per", "Xf", "SA"]
+
+
+bounds = create_bounds_list(create_df_testing_cnames, bounds_dict)
+bounds
+
+target = [196, 90]
+
+
+new_setpoints = genetic_algorithm(
+    objective=loss_MFI_function,
+    target=target,
+    bounds=bounds,
+    break_accuracy=0.005,
+    n_bits=16,
+    n_iter=100,
+    n_pop=100,
+    r_cross=0.9,
+    r_mut=None,
+)
+new_setpoints  #0.22148, 14.188, 70,318
+
+
+
+MFI_model.predict(create_df_testing(M_per=new_setpoints[0], Xf=new_setpoints[1], SA=new_setpoints[2]))[0]
+#MFI = 196.8
+
+CI_model.predict(create_df_testing(M_per=new_setpoints[0], Xf=new_setpoints[1], SA=new_setpoints[2]))[0]
+#CI = 98.4
+
+new_setpoints= [0, 15.07, 79.7]
+loss_MFI_function(target=[196, 90], X =new_setpoints)
+
+MFI_model.predict(create_df_testing(M_per=new_setpoints[0], Xf=new_setpoints[1], SA=new_setpoints[2]))[0]
+CI_model.predict(create_df_testing(M_per=new_setpoints[0], Xf=new_setpoints[1], SA=new_setpoints[2]))[0]
 
