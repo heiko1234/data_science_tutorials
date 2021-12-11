@@ -127,6 +127,9 @@ Create a chart that clearly shows the periods of high yields.
 
 The average Yield over the time period is about 88 % but filtering the values that are below 85.0% result in a average Yield of 94 %.
 
+![controlchart_yield](./schema/Controlchart_Yield.jpg)
+
+
 ## Next steps
 
 Now, we can continue with the next phase of the project.

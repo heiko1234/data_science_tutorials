@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 
+from polymer_process_improvement.source.control_chart import simple_controlchart
+from polymer_process_improvement.source.nelson_controlchart import control_chart
 
 
 data = pd.read_csv("/home/heiko/Repos/data_science_tutorials/polymer_process_improvement/data/BaselineYieldData.csv", sep=",")
@@ -49,6 +51,13 @@ np.average(data["Yield"])   #88.2
 
 # filtered
 np.average(fdata["Yield"])  #94.0
+
+
+data.columns
+control_chart(data =data, y_name="Yield", xlabel = None, title = "Controlchart Yield", lsl = 85, usl = None, outlier = False, lines= False, mean = None, sigma = None)
+
+simple_controlchart(data =data, y_name="Yield", title = "Controlchart Yield", target=None, xlabel=None, Phase=None, Phasesinplot= True, Outlier = False, plotlimit=False)
+
 
 
 

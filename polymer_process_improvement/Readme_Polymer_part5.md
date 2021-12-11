@@ -22,6 +22,10 @@ You can create, test and run models of your own to make good suggestions for the
 
 Beside your attempts to model, we like to use the sklearn_to_mlflow repo.
 
+The mlflow repo should contain all neccessary informations and scripts as well as the docker container. 
+
+Within this repo, there is a training.yaml file that can be copied and modified.
+
 Change the training yaml file.
 
 ```bash
@@ -57,7 +61,10 @@ features:
 
 As you see, we only need to change the yaml file for the training in that pipeline. 
 
-We execute the `general_training.py` in its Repo folder, since this virtual environemnt is also good for the training of our project.
+We execute the `general_training.py` in the mlflow Repo folder, since this virtual environemnt is also good for the training of our project. We just need to say where are the data and which features we like to take for the modelling.
+
+
+Violá, please check in [mlflow](localhost:5000) the new experiments.
 
 ![mlflow_models](./schema/MLflow_models_added.jpg)
 
@@ -74,7 +81,7 @@ We can register these models like:
 
 Since we have trained these models, we also want to make predictions.
 
-We can load the models with the `get_mlflow_model` function direct from mlflow.
+We can load the models with the `get_mlflow_model` function direct from mlflow. Please see the mlflow repo for this function. 
 
 ```bash
 
@@ -103,7 +110,7 @@ data["diff"] = data["MFI"] - data["prediction"]
 
 ```
 
-We use the whole not filtered ( Filter: Yield >= 55.0 %), since we have ower label, we see that these few data points with a different special cause (Yield far away from normal operations) would destroy ower new nice model and its performance.
+We use the whole not filtered ( Filter: Yield >= 55.0 %), since we have our label (0 = above 55 %, 1 = below 55 %), we see that these few data points with a different special cause (Yield far away from normal operations) would destroy ower new nice model and its performance.
 
 ![MFI_prediction](./schema/MFI_prediction_truevalue.jpg)
 
