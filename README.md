@@ -37,9 +37,18 @@ Step by step we will grow our tool stack.
 
 - [dash_app]
 
+- [dagster_pipelines]
+
 - [quality_of_anodized_parts]
 
 - [pricing_management_of_chemical_supplier]
+
+
+
+## Usage of Tools
+
+![Packages_workflow](Packages_Workflow.jpg)
+
 
 
 # Literatur used:
