@@ -23,10 +23,19 @@ Step by step we will grow our tool stack.
 
 ## Tutorials to try:
 
+- [tool_stack](./tool_stack/) will deal with basic information about the tools and packages that we use
+
+
+- [virtual_environments](./virtual_environments) will deal with a very basic thing. How to setup a virtual environment. Easy and fast basics
+
+
 - [polymer_process_improvement](./polymer_process_improvement/) will deal with a typical chemical process improvement 
 
 
+
 ## Tutorials in planing:
+
+- [dash_app]
 
 - [quality_of_anodized_parts]
 
