@@ -31,6 +31,8 @@ Step by step we will grow our tool stack.
 
 - [polymer_process_improvement](./polymer_process_improvement/) will deal with a typical chemical process improvement 
 
+- [pricing_management_of_chemical_supplier](./price_management/) wll deal with an improvement on pricing of chemical goods.
+
 
 
 ## Tutorials in planing:
@@ -41,7 +43,6 @@ Step by step we will grow our tool stack.
 
 - [quality_of_anodized_parts]
 
-- [pricing_management_of_chemical_supplier]
 
 
 
