@@ -46,7 +46,7 @@ The filler preparation tank is steady mixed and held at target concentration.
 The content gets refilled / appendixed each day with filler and water, as well as small amounts of a ciscosity modifier if the iscosity gets to high.
 
 
-### Polymerizatin
+### Polymerization
 
 The polymierization process is a batch process, while the plant is running 24h every day with 3 batches a day.
 Clear polymere can be done by heating and stirring a monomer until it polymerizes. The white polymer is created by adding filler slurry to the reaction start into the polymerization reaction vessel.
@@ -97,7 +97,7 @@ Crisis happens regularly and the sequence of this events are very similar.
 - the filler is not well distributed through the polymer and agglomerates are blocking the flow channels in the molds
 - Heavy rain has an effect on the pH of the water supply, which will affect the polymerization reaction
 - MFI specification is to high, so batches of polymer at the bottom end of the specification range should be the only one used
-- abnormal ambient temperatures and humidit are blamed to have a negative effect to the polymer
+- abnormal ambient temperatures and humidity are blamed to have a negative effect to the polymer
 
 Process changes are made, trials are run and data are gathered. But none of the changes ever conclusively solve the problem. 
 The problem goes away and each project team so far improved the process gradually and convinced that their solution was making the difference until the next crisis.

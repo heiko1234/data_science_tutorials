@@ -51,6 +51,11 @@ Step by step we will grow our tool stack.
 ![Packages_workflow](Packages_Workflow.jpg)
 
 
+## How to use the python scripts
+
+I personally don't like jupiter notebooks. You don't need them. If you like to execute one single line in an python file, execute it with ` "SHIFT" + "ENTER" `. Some of these scripts have a main function. They can be run as a script and get executed totally.
+
+
 
 # Literatur used:
 
