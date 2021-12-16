@@ -13,6 +13,30 @@ There seem no reason to include *Customer ID* or *Sales Rep* as these variables 
 
 You start to model in [this](./source/modelling.py) script.
 
+With sklearn we can make easi use of categorical columns in a data frame. They get Encoded into 0 and 1s for each value factor in a categorical column.
+
+```bash
+
+from sklearn.compose import make_column_selector as selector
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+
+
+categorical_columns_selector = selector(dtype_include=object)
+categorical_columns = categorical_columns_selector(subdata)
+# ['Region', 'Supply Demand Balance', 'Sales Rep Experience', 'Buyer Sophistication', 'Product Category', 'Price Increase']
+
+# make a ColumnTransformator for these columns
+t = ColumnTransformer(transformers=[
+    ('onehot', OneHotEncoder(), categorical_columns),
+    # ('scale', StandardScaler(), ['col1', 'col2'])
+], remainder='passthrough')
+
+
+# Transform the features
+features = t.fit_transform(subdata.loc[:, categorical_columns])
+
+```
 
 
 The most significant (p-value <= 0.05) are:
