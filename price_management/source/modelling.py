@@ -1,10 +1,13 @@
 
+
+
 from numpy.core.fromnumeric import mean
 import pandas as pd
 import numpy as np
 import plotly.express as px
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
+from sklearn.ensemble import RandomForestRegressor
 
 
 from sklearn.compose import make_column_selector as selector
@@ -105,13 +108,25 @@ subdata["predict"] = model.predict(features)
 
 
 
+randomforest = RandomForestRegressor(random_state=0, n_jobs=-1, n_estimators=150, max_features=4, bootstrap = True)
+
+model_rf = randomforest.fit(features, result)
+# yes, it needs to be flatten!
+
+round(model_rf.score(features, result), 4)  #0.83
+
+
 test_data
 test_features = t.transform(test_data.loc[:,['Region', 'Supply Demand Balance', 'Sales Rep Experience', 'Buyer Sophistication', 'Product Category']])
+test_features
 
 test_result = test_data.loc[:,"Price Increase"]
 test_result #6.63
 
 test_features2= poly.transform(test_features)
+
+
+model_rf.predict(test_features)[0]
 
 model.predict(test_features)[0]
 
@@ -119,8 +134,14 @@ model.predict(test_features)[0]
 model.predict(test_features2)[0]
 
 
+# random forest prediction
+fig = px.scatter(x=subdata["Price Increase"], y=model_rf.predict(features))
+fig.show()
+
+# linear regression prediction
 fig = px.scatter(x=subdata["Price Increase"], y=subdata["predict"])
 fig.show()
+
 
 subdata["diff"] = subdata["Price Increase"]-subdata["predict"]
 
@@ -128,6 +149,8 @@ subdata["diff"] = subdata["Price Increase"]-subdata["predict"]
 np.std(subdata["diff"])  # 1.05
 
 
+
+# group data analysis
 grouped_data = subdata.groupby(["Product Category", "Sales Rep Experience"]).mean().reset_index()
 
 grouped_data
@@ -136,7 +159,7 @@ fig = px.line(grouped_data, x = "Product Category", y = "Price Increase", color 
 fig.show()
 
 
-
+# group data analysis, part 2
 grouped_data = subdata.groupby(["Product Category", "Buyer Sophistication"]).mean().reset_index()
 
 grouped_data

@@ -16,7 +16,7 @@ You start to model in [this](./source/modelling.py) script.
 
 
 The most significant (p-value <= 0.05) are:
-- Product Category
+- Product Category  
 - Buyer Sophistication
 - Buyer Sophistication*Product Category
 - Supply Demand Balance
@@ -25,7 +25,7 @@ The most significant (p-value <= 0.05) are:
 
 and we can make a good prediction with these features used in the model.
 
-![prediction_plot](./assets/price_prediciton_plot.jpg)
+![prediction_plot](./assets/price_prediction_plot.jpg)
 
 
 

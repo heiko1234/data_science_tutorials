@@ -29,10 +29,14 @@ The *Supply Demand Balance* itself cannot be directly controlled but it can be c
 
 Together with the management team you woked on an improvement plan focusing on 4 key areas:
 
-- Product Category
-- Sales Representative Training
-- New Rules for Supply/Demand Balance Decisions
-- Price Management Process Redesign
+- **Product Category**, Since the analysis used only sample products and customers, the management agrees to classify all of the significant products of the companys portfolio.
+- **Sales Representative Training**, The analysis highlighted the relative weakness of sales representatives in the prie negotiation process. Sophistiated buyers are much more successfu in keeping prices low than are sales representatives in negotiation prices up. The sales representatives themselves requested more training in this area.
+- **New Rules for Supply/Demand Balance Decisions**, Recognizing the need to understand the prevailing supply / demand balance before adjusting pricing targets. A senior market manager joins th team to develop and monitor the market dynamics by quarter.
+- **Price Management Process Redesign**, A workshop for reengineering of the price management process is needed:
+    - Step 1: Each key customer and product combination will be reviewed. The blanket 5 % increase that wa sused before gets replaced. Target prices will be in the range of 0-10 %.
+    - Step 2. Price negotiations will be tracked at weekly account reviews. 
+    - Step 3. At the agreed date the price increses are put into the order entry system for subsequent transactions.
+    - Step 4. Following the price increases, the actual invoiced prices will be downloaded from the order entry system and checked against the new target. A dashboard of summary reports will allow the business leadership team to track planned versus actual performances.
 
 
 
