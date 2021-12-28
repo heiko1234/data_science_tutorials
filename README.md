@@ -5,6 +5,8 @@ This Repo will consist of several tutorials folders and descriptions.
 
 **Please don`t blame me while not everything is right in place on time.** 
 
+![What_AI_is_about](./What_AI_is_about.jpg)
+
 This repo will grow by time and is mainly based on text book examples out of the Six Sigma context.
 
 We will try to use the data provided and go step by step through the whole examples, with new data on each step and new findings and techniques to learn in between.
