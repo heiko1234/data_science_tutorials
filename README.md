@@ -30,6 +30,8 @@ Step by step we will grow our tool stack.
 
 - [virtual_environments](./virtual_environments) will deal with a very basic thing. How to setup a virtual environment. Easy and fast basics
 
+- [mlflow](./mlflow_tutorial) will deal with basics of mlflow 
+
 
 - [polymer_process_improvement](./polymer_process_improvement/) will deal with a typical chemical process improvement 
 
