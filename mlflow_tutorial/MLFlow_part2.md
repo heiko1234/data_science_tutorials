@@ -74,7 +74,7 @@ sklearn_models_dict = {
 
 ## General Concept
 
-
+### TODO: Missing picture of sklearn pipeline: Scaler + Model, 
 
 
 Based on the model class, the parameters deined in the `configuration.yaml` file are taken to configure the method. For the ensemble method the inner and outer function can be configured in the `configuration.yaml` file.
