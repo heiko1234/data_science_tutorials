@@ -41,6 +41,8 @@ Step by step we will grow our tool stack.
 
 ## Tutorials in planing:
 
+- [data_preprocessing]
+
 - [dash_app]
 
 - [dagster_pipelines]
