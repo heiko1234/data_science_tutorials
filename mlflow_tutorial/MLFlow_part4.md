@@ -75,7 +75,9 @@ def get_mlflow_model(model_name, azure=True, local_model_dir = "/model/"):
 In the `sklearn_to_mlflow` repo folder `experimental` you can find all functions and their usage.
 
 
+**Attention:**
+
+Renaming in the `.env` file `AZURE_CONNECTION_STRING` to `LOCAL_AZURE_CONNECTION_STRING` will give an error on the `pyfunc` function. These keywords AZURE_CONNECTION_STRING and AZURE_STORAGE_ACCESS_KEY are used internally and cannot be provided as function arguments while the exact folder for the models can be provided.
 
 
-
-[Part4](./MLFlow_part4.md)
+[Part5](./MLFlow_part5.md)
