@@ -5,7 +5,7 @@ This Repo will consist of several tutorials folders and descriptions.
 
 **Please don`t blame me while not everything is right in place on time.** 
 
-![What_AI_is_about](./What_AI_is_about.jpg)
+![What_AI_is_about](./assets/What_AI_is_about.jpg)
 
 This repo will grow by time and is mainly based on text book examples out of the Six Sigma context.
 
@@ -54,7 +54,7 @@ Step by step we will grow our tool stack.
 
 ## Usage of Tools
 
-![Packages_workflow](Packages_Workflow.jpg)
+![Packages_workflow](./assets/Packages_Workflow.jpg)
 
 
 ## How to use the python scripts
