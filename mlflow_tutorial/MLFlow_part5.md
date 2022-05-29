@@ -331,7 +331,7 @@ To use the dumped pickle file our input features need to be in the correct order
 
 # Conclusion
 
-Ok, done!
+Ok, we are done!
 
 This tutorial should give you the opportunity to develop locally your models and develop your own dash app in wiede ranges locally with all tools that you may have on your plattform available. 
 
