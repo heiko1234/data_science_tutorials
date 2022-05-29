@@ -59,7 +59,8 @@ The function `create_all_model_json_dict` fetches all json files of a specificed
 # in python
 
 # to check all dumped models: chemical and already existing model: secondmodel
-feature_limits_dict = create_all_model_json_dict(local=True,
+feature_limits_dict = create_all_model_json_dict(
+    local=True,
     path="/home/heiko/Repos/SKlearn_to_MLFLow/model_dump",
     model_path=None,
     features="feature_limits.json")
@@ -67,7 +68,8 @@ feature_limits_dict
 
 
 
-feature_limits_dict = create_all_model_json_dict(local=False,
+feature_limits_dict = create_all_model_json_dict(
+    local=False,
     path=None,
     model_path=None,
     features="feature_limits.json",
@@ -163,7 +165,8 @@ get_model_json_artifact(
 )
 
 
-feature_dtypes_dict = create_all_model_json_dict(local=True,
+feature_dtypes_dict = create_all_model_json_dict(
+    local=True,
     path="/home/heiko/Repos/SKlearn_to_MLFLow/model_dump",
     features="feature_dtypes.json")
 feature_dtypes_dict
