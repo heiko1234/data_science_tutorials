@@ -35,7 +35,9 @@ Step by step we will grow our tool stack.
 
 - [polymer_process_improvement](./polymer_process_improvement/) will deal with a typical chemical process improvement 
 
-- [pricing_management_of_chemical_supplier](./price_management/) wll deal with an improvement on pricing of chemical goods.
+- [pricing_management_of_chemical_supplier](./price_management/) will deal with an improvement on pricing of chemical goods.
+
+- [predictive_maintenance_hd](./predictive_maintenance_hd/) will deal with an data preprocessing and a model suitable for failure detection.
 
 
 
