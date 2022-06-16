@@ -145,6 +145,9 @@ oneway_plot(data=data, target="Price Increase", column="Product Category")
 my_plot_list = ["Product Category","Supply Demand Balance","Buyer Sophistication" ]
 
 
+fig = px.box(data, y="Price Increase", x ="Product Category", points="all", color="Defective")
+fig.show()
+
 
 for i in my_plot_list: 
     fig = px.box(data, y="Price Increase", x =i, points="all")

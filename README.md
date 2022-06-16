@@ -47,6 +47,8 @@ Step by step we will grow our tool stack.
 
 - [dagster_pipelines]
 
+- [dagster_mlflow_pipeline]
+
 - [quality_of_anodized_parts]
 
 
