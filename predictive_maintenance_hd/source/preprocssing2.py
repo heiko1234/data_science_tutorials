@@ -1,7 +1,5 @@
 
 
-
-
 import numpy as np
 import pandas as pd
 
@@ -28,61 +26,32 @@ from predictive_maintenance_hd.source.utility import (
 
 
 
-# load data
-
 df = pd.read_csv("./predictive_maintenance_hd/data/df_2016_7.csv")
 
-df = pd.read_csv("./predictive_maintenance_hd/data/df_2016_0.csv")
+df2 = pd.read_csv("./predictive_maintenance_hd/data/df_2016_10.csv")
 
 
-cnames=list(df.columns)
-cnames
+# adding suffix to df2
+df2=df2.add_suffix("_10")
 
+
+
+df2.rename(columns={'serial_number_10':'serial_number'}, inplace=True)
+
+list(df.columns)
+list(df2.columns)
+
+dd = pd.merge(df, df2, on="serial_number")
+dd
 
 df.shape  #9551, 27
-list(df.columns)
-
-# some overview about the data
-df.describe()
-df.isna().sum()
-df.std()
+dd.shape  #9551, 53
 
 
-# replace inf and drop nan values
-df.replace([np.inf, -np.inf], np.nan, inplace=True)
-df = df.dropna(axis=0)
-
-
-
-
-# only one model kind
-list(set(list(df["model"])))    # ['ST4000DM000']
-
-
-
-
-# Feature Engineering
-
-df["split_serial_number_3"] = df["serial_number"].str[:3]
-df["split_serial_number_4"] = df["serial_number"].str[:4]
-df["split_serial_number_1"] = df["serial_number"].str[:1]
-
-
-# makeing some plots
-
-fig =  px.histogram(data_frame=df, x="split_serial_number_4", color = "failure", nbins=100, marginal="box")
-fig.show()
-
-
-
-for c_element in list(df.columns):
-    fig = px.histogram(df, x=c_element)
-    fig.show()
-
-
+df = dd
 
 # remove date column, as loop
-list_of_columns_to_drop = ["date", "model", "capacity_bytes"]
+list_of_columns_to_drop = ["date", "date_10", "capacity_bytes"]
 for i in list_of_columns_to_drop:
     try: 
         df = df.drop(i, axis=1)
@@ -90,80 +59,77 @@ for i in list_of_columns_to_drop:
         df = df
 
 
+# some ne features
 
-# be sure date is out of df
-df = df.drop("date", axis=1)
-
-df.head()
-
-
-
-
-
-
-
-# serial_number encoding
-
-
-cnames_serial = [i for i in df.columns if "serial" in i]
-cnames_serial
-
-
-
-dd_extra1, ohe1 = Encoder2DataFrame(data=df, column_name="split_serial_number_1")
-dd_extra1.head()
-
-
-dd_extra3, ohe3 = Encoder2DataFrame(data=df, column_name="split_serial_number_3")
-dd_extra3.head()
-
-dd_extra4, ohe4 = Encoder2DataFrame(data=df, column_name="split_serial_number_4")
-dd_extra4.head()
-
-
-
-# list(dd_extra1.columns)
-# list(dd_extra3.columns)
-# list(dd_extra4.columns)
-
-
-
-# new_df
-new_df = pd.concat([df, dd_extra1, dd_extra3, dd_extra4], axis=1)
-new_df
+for i in dd.columns:
+    try:
+        new_column_name = "diff_" + i
+        test_i = i + "_10"
+        if test_i in dd.columns:
+            print(test_i)
+            df[new_column_name] = abs(df[test_i]-df[i])
+    except BaseException:
+        pass
 
 
 
 
+df.shape
 
 
-
-db = new_df
-
-
-
-
-# remove date serial_number columns: no categoric data
-
-cnames_serial
-list_of_columns_to_drop = ['serial_number', 'split_serial_number_3', 'split_serial_number_4', 'split_serial_number_1']
+list_of_columns_to_drop = ['serial_number', "model", "capacity_bytes_10", "diff_failure", "failure_2", 'failure_10', 'model_10']
 
 for i in list_of_columns_to_drop:
     try: 
-        db = db.drop(i, axis=1)
+        df = df.drop(i, axis=1)
     except BaseException:
-        db = db
-
-db.head()
+        df = df
 
 
+#all values absolute
+df = abs(df)
+
+df.columns
+
+df["diff_smart_1_raw"].std()
+df["diff_smart_5_raw"].std()
 
 
+def check_variance(data):
+    for i in data.columns:
+        if data[i].std() < 0.01:
+            print(f"{i}: {data[i].std()}")
+
+
+
+df.shape # 9551, 67
+check_variance(data=df)
+
+
+
+df = df.drop(columns=["diff_smart_184_raw", "diff_smart_199_raw", "diff_smart_183_raw", "diff_smart_189_raw", "diff_smart_3_normalized"])
+
+df = df.drop(columns=["diff_smart_188_raw"])
+
+
+df.shape   #9551, 61
+
+
+
+for c_element in list(df.columns):
+    fig = px.histogram(df, x=c_element, color = "failure", nbins=100, marginal="box")
+    fig.show()
+
+
+
+# selection on 3 + 1 value columns, graphical evaluation
+df = df.loc[:, ["diff_smart_9_raw", "diff_smart_241_raw", "diff_smart_1_raw", "failure"]]
+df
 
 
 # Split date in feature and target data
 
-data_target, data_features, target_name, feature_names = split_target_and_feature(data=db, target="failure")
+data_target, data_features, target_name, feature_names = split_target_and_feature(data=df, target="failure")
 
 
 # split features and target data in train and test datasets
@@ -179,27 +145,7 @@ list(features_train.columns)
 
 
 
-# Create a dummy classifier model
 
-
-DC = DummyClassifier(strategy="most_frequent")
-clf=DC.fit(X= features_train, y=target_train)
-
-
-dummy_train=clf.score(features_train, target_train)
-dummy_test=clf.score(features_test, target_test)
-
-dummy_bas_train=balanced_accuracy_score(target_train, clf.predict(features_train))
-dummy_bas_test=balanced_accuracy_score(target_test, clf.predict(features_test))
-
-dummy_train   # 0.912
-dummy_test    # 0.914
-dummy_bas_train   # 0.5
-dummy_bas_test    # 0.5
-
-
-
-#t-sne
 
 make_TSNE_plot(
     features=features_train, 
@@ -209,25 +155,12 @@ make_TSNE_plot(
 
 
 
-# Data Preprocessing
-
 from sklearn.preprocessing import (
     PowerTransformer,
     QuantileTransformer,
     StandardScaler,
     MinMaxScaler,
 )
-
-
-
-# target_test
-# target_train
-
-
-# Transformers
-quantile_transformer = QuantileTransformer(random_state=0)
-
-train_np, test_np, scaler = scale_data(train=features_train, test=features_test, scaler=quantile_transformer)
 
 
 
@@ -246,26 +179,15 @@ def add_const(data, value=1):
 features_train_bc = add_const(data=features_train, value=1)
 features_test_bc = add_const(data=features_test, value=1)
 
+
+check_variance(data=features_train_bc)
+check_variance(data=features_test_bc)
 # features_train_bc
 # features_test_bc
 
 
 train_np, test_np, scaler = scale_data(train=features_train_bc, test=features_test_bc, scaler=powertransformer)
 
-
-
-# combain train features scaled and target
-# concat for plots
-
-train_df = pd.DataFrame(data=train_np, columns=feature_names)
-
-dd = pd.concat([train_df, target_train], axis=1)
-dd
-
-
-for c_element in list(dd.columns):
-    fig =  px.histogram(data_frame=dd, x=c_element, color = "failure", nbins=100, marginal="box")
-    fig.show()
 
 
 
@@ -279,6 +201,8 @@ make_TSNE_plot(
 
 
 
+
+
 # classification models
 
 from sklearn.ensemble import RandomForestClassifier
@@ -287,6 +211,9 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.dummy import DummyClassifier
+from sklearn.metrics import balanced_accuracy_score
+
 
 from sklearn.gaussian_process.kernels import RBF
 
@@ -296,7 +223,8 @@ model_names = [
     "AdaC", 
     "MLPC", 
     "KNC", 
-    "DTC"
+    "DTC",
+    "Dummy"
     ]
 
 
@@ -306,6 +234,7 @@ classifiers = [
     MLPClassifier(alpha=1, max_iter=1000),
     KNeighborsClassifier(3),
     DecisionTreeClassifier(max_depth=5),
+    DummyClassifier(strategy="most_frequent")
 ]
 
 
@@ -340,19 +269,13 @@ for count, value in enumerate(model_names):
 
 
 
-# add dummy classifier
 
-dict = {"model_name": "dummyCLF",
-        "r2_train": dummy_train,
-        "r2_test": dummy_test,
-        "bas_train": dummy_bas_train,
-        "bas_test": dummy_bas_test
-    }
+# # Explainability
 
-output_df = output_df.append(dict, ignore_index = True)
+# Feature Importance
 
 
 
-output_df
+
 
 
