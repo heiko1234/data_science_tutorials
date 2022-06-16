@@ -200,6 +200,19 @@ make_TSNE_plot(
 
 
 
+# Transformers
+quantile_transformer = QuantileTransformer(random_state=0)
+
+train_np, test_np, scaler = scale_data(train=features_train, test=features_test, scaler=quantile_transformer)
+
+
+make_TSNE_plot(
+    features=train_np, 
+    target=target_train, 
+    plot=True)
+
+
+
 
 
 
