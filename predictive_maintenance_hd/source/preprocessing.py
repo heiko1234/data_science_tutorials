@@ -68,6 +68,10 @@ df["split_serial_number_4"] = df["serial_number"].str[:4]
 df["split_serial_number_1"] = df["serial_number"].str[:1]
 
 
+
+
+
+
 # makeing some plots
 
 fig =  px.histogram(data_frame=df, x="split_serial_number_4", color = "failure", nbins=100, marginal="box")
@@ -78,6 +82,10 @@ fig.show()
 for c_element in list(df.columns):
     fig = px.histogram(df, x=c_element)
     fig.show()
+
+
+
+
 
 
 
@@ -179,23 +187,7 @@ list(features_train.columns)
 
 
 
-# Create a dummy classifier model
 
-
-DC = DummyClassifier(strategy="most_frequent")
-clf=DC.fit(X= features_train, y=target_train)
-
-
-dummy_train=clf.score(features_train, target_train)
-dummy_test=clf.score(features_test, target_test)
-
-dummy_bas_train=balanced_accuracy_score(target_train, clf.predict(features_train))
-dummy_bas_test=balanced_accuracy_score(target_test, clf.predict(features_test))
-
-dummy_train   # 0.912
-dummy_test    # 0.914
-dummy_bas_train   # 0.5
-dummy_bas_test    # 0.5
 
 
 
@@ -220,8 +212,6 @@ from sklearn.preprocessing import (
 
 
 
-# target_test
-# target_train
 
 
 # Transformers
@@ -231,7 +221,11 @@ train_np, test_np, scaler = scale_data(train=features_train, test=features_test,
 
 
 
-# box-cox
+
+
+
+
+# Transformers   box-cox
 powertransformer=PowerTransformer(method='box-cox', standardize=True)
 
 
@@ -254,6 +248,9 @@ train_np, test_np, scaler = scale_data(train=features_train_bc, test=features_te
 
 
 
+
+
+
 # combain train features scaled and target
 # concat for plots
 
@@ -262,6 +259,13 @@ train_df = pd.DataFrame(data=train_np, columns=feature_names)
 dd = pd.concat([train_df, target_train], axis=1)
 dd
 
+
+
+
+
+
+
+# make some plots
 
 for c_element in list(dd.columns):
     fig =  px.histogram(data_frame=dd, x=c_element, color = "failure", nbins=100, marginal="box")
@@ -274,6 +278,16 @@ make_TSNE_plot(
     features=train_np, 
     target=target_train, 
     plot=True)
+
+
+
+
+
+# Transformer
+
+MinMax_transformer = MinMaxScaler()
+
+train_np, test_np, scaler = scale_data(train=features_train, test=features_test, scaler=MinMax_transformer)
 
 
 
@@ -296,16 +310,18 @@ model_names = [
     "AdaC", 
     "MLPC", 
     "KNC", 
-    "DTC"
+    "DTC",
+    "Dummy"
     ]
 
 
 classifiers = [
     RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
-    AdaBoostClassifier(),
+    AdaBoostClassifier(base_estimator=None, n_estimators=50, learning_rate=1, algorithm="SAMME.R", random_state=None),
     MLPClassifier(alpha=1, max_iter=1000),
-    KNeighborsClassifier(3),
+    KNeighborsClassifier(n_neighbors=5),
     DecisionTreeClassifier(max_depth=5),
+    DummyClassifier(strategy="most_frequent")
 ]
 
 
@@ -340,19 +356,53 @@ for count, value in enumerate(model_names):
 
 
 
-# add dummy classifier
-
-dict = {"model_name": "dummyCLF",
-        "r2_train": dummy_train,
-        "r2_test": dummy_test,
-        "bas_train": dummy_bas_train,
-        "bas_test": dummy_bas_test
-    }
-
-output_df = output_df.append(dict, ignore_index = True)
-
-
 
 output_df
+
+####
+
+
+count = 1
+value = "AdaC"
+
+model = classifiers[count]
+clf=model.fit(X= train_np, y=target_train)
+
+
+
+# # Explainability
+
+test_dd = pd.concat([features_test, target_test], axis=1)
+# or
+test_dd = pd.concat([features_train, target_train], axis=1)
+
+
+
+test_dd
+feature_names
+target_name
+
+
+
+# Feature Importance
+
+from predictive_maintenance_hd.source.feature_importance import (
+    feature_importance
+)
+
+from predictive_maintenance_hd.source.pareto_plot import (
+    paretoplot
+)
+
+
+
+fi= feature_importance(trained_model=clf, df=test_dd, feature_columns=feature_names, target_column=target_name)
+fi
+
+
+paretoplot(data=fi, column_of_names="feature", column_of_values="importance", yname="feature importance", plot=True)
+
+paretoplot(data=fi, yname="feature importance", plot=True)
+
 
 

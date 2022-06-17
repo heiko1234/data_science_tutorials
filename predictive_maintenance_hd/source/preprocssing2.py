@@ -19,9 +19,6 @@ from predictive_maintenance_hd.source.make_TSNE import (
     make_TSNE_plot
 )
 
-from predictive_maintenance_hd.source.utility import (
-    Encoder2DataFrame
-)
 
 
 
@@ -87,12 +84,12 @@ for i in list_of_columns_to_drop:
 
 
 #all values absolute
-df = abs(df)
+# df = abs(df)
 
 df.columns
 
-df["diff_smart_1_raw"].std()
-df["diff_smart_5_raw"].std()
+# df["diff_smart_1_raw"].std()
+# df["diff_smart_5_raw"].std()
 
 
 def check_variance(data):
@@ -115,6 +112,7 @@ df = df.drop(columns=["diff_smart_188_raw"])
 df.shape   #9551, 61
 
 
+# plot all
 
 for c_element in list(df.columns):
     fig = px.histogram(df, x=c_element, color = "failure", nbins=100, marginal="box")
@@ -214,6 +212,13 @@ make_TSNE_plot(
 
 
 
+# Transformer
+
+MinMax_transformer = MinMaxScaler()
+
+train_np, test_np, scaler = scale_data(train=features_train, test=features_test, scaler=MinMax_transformer)
+
+
 
 
 # classification models
@@ -255,6 +260,10 @@ output_df = pd.DataFrame(columns=["model_name", "r2_train", "r2_test", "bas_trai
 output_df
 
 
+count = 0
+value = "RFC"
+
+
 for count, value in enumerate(model_names):
 
     print(f"count: {count}")
@@ -283,10 +292,47 @@ for count, value in enumerate(model_names):
 
 
 
+count = 0
+value = "RFC"
+
+model = classifiers[count]
+clf=model.fit(X= train_np, y=target_train)
+
+
+
+
 # # Explainability
+
+test_dd = pd.concat([features_test, target_test], axis=1)
+# or
+test_dd = pd.concat([features_train, target_train], axis=1)
+test_dd
+
+feature_names
+target_name
+
+
+
 
 # Feature Importance
 
+from predictive_maintenance_hd.source.feature_importance import (
+    feature_importance
+)
+
+from predictive_maintenance_hd.source.pareto_plot import (
+    paretoplot
+)
+
+
+
+fi= feature_importance(trained_model=clf, df=test_dd, feature_columns=feature_names, target_column=target_name)
+fi
+
+
+paretoplot(data=fi, column_of_names="feature", column_of_values="importance", yname="feature importance", plot=True)
+
+paretoplot(data=fi, yname="feature importance", plot=True)
 
 
 
