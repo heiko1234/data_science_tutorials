@@ -19,6 +19,9 @@ from predictive_maintenance_hd.source.make_TSNE import (
     make_TSNE_plot
 )
 
+from predictive_maintenance_hd.source.pareto_plot import (
+    correlationplot
+)
 
 
 
@@ -28,11 +31,21 @@ df = pd.read_csv("./predictive_maintenance_hd/data/df_2016_7.csv")
 df2 = pd.read_csv("./predictive_maintenance_hd/data/df_2016_10.csv")
 
 
+# colorscale=px.colors.diverging.Picnic
+# colorscale=px.colors.sequential.Bluered,
+
+correlationplot(data=df2, colorscale=None, title="Correlations", hoferinfo=True, digits=3, annotation=False, plot=True)
+
+
+
+
+
+
 # adding suffix to df2
 df2=df2.add_suffix("_10")
 
 
-
+# rephrase on name back
 df2.rename(columns={'serial_number_10':'serial_number'}, inplace=True)
 
 list(df.columns)

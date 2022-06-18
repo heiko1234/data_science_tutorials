@@ -4,7 +4,8 @@ import numpy as np
 import plotly
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
-
+import plotly.figure_factory as ff
+import plotly.express as px
 
 
 
@@ -90,4 +91,78 @@ def paretoplot(data, column_of_names=None, column_of_values=None, yname=None, xn
         plotly.offline.plot(fig, filename="paretoplot.html")
     else:
         return fig
+
+
+
+
+def correlationplot(data, correlation_method=None, colorscale=None, title="Heatmap", hoferinfo=True, digits=3, annotation=False, plot=True):
+
+    if correlation_method == None:
+        correlation_method="pearson"
+
+    corr = data.corr(method=correlation_method)
+    corr=np.around(corr,digits)
+    mask = np.triu(np.ones_like(corr, dtype=bool))
+    df_mask = corr.mask(mask)
+
+
+    fig = None
+
+    if colorscale==None:
+        colorscale=px.colors.diverging.Picnic
+
+    if hoferinfo == True: 
+        hoferinfo = None
+    else: 
+        hoferinfo = "none"
+
+
+
+    fig = ff.create_annotated_heatmap(
+        z=df_mask.to_numpy(), 
+        x=df_mask.columns.tolist(),
+        y=df_mask.columns.tolist(),
+        colorscale=colorscale,
+        #colorscale=px.colors.sequential.Bluered,
+        hoverinfo=hoferinfo, # "none", #Shows hoverinfo for null values
+        showscale=True,
+        ygap=1, 
+        xgap=1,
+        zmax=1, 
+        zmin=-1
+        )
+
+    fig.update_xaxes(side="bottom")
+
+    fig.update_layout(
+        title_text=title, 
+        title_x=0.5, 
+        # width=1000, 
+        # height=1000,
+        xaxis_showgrid=False,
+        yaxis_showgrid=False,
+        xaxis_zeroline=False,
+        yaxis_zeroline=False,
+        yaxis_autorange='reversed',
+        template='plotly_white'
+    )
+
+    # NaN values are not handled automatically and are displayed in the figure
+    # So we need to get rid of the text manually
+    if annotation: 
+        for i in range(len(fig.layout.annotations)):
+            if fig.layout.annotations[i].text == 'nan':
+                fig.layout.annotations[i].text = ""
+    else:
+        for i in range(len(fig.layout.annotations)):
+            fig.layout.annotations[i].text=""
+
+    if plot:
+        fig.show()
+    else:
+        return fig
+
+
+
+
 
