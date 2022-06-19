@@ -8,10 +8,42 @@ The original data can be downloaded from [backblaze](https://www.backblaze.com/b
 The original data were cleaned and restructured.
 
 * removed NaNs
-* only most frequent drive models
-* a dataframe was created
+* only most frequent drive models: 'ST4000DM000'
+* a dataframe was created (ready-to-use)
 
 
-Data to predict failures a week in advance: df_2016_7.csv
+These Data have been prepared by Franziska Horn for one of her workshops. Thank you Franz!
 
-Data to evaluate the final model on the data from 2017
+Here i will have a deeper look into these data to improve my prediction skills and make a better model than in your workshop. :)
+
+
+
+Data to predict failures a week in advance are labeled with a suffix:
+
+- 7 days in advanced: df_2016_7.csv
+- 5 days in advanced: df_2016_5.csv
+
+Data to evaluate the final model we take from 2017.
+
+If you check backblaze homepage, there are more data available. Have fun to work with them.
+
+
+## Goal of this tutorial
+
+In this tutorial we will have a look into different approaches for predictive maintenance (in this case hd computer disks).
+
+We will have a look into data preprocessing and correlations. 
+
+
+
+## Reusability 
+
+Functions that maybe suitable for reusage are put in separated python files. These files are:
+
+- data_utility.py
+- feature_importance.py
+- graphics.py
+- model_evaluation.py
+
+
+[Part2](./Readme_part2.md)
