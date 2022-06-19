@@ -22,7 +22,6 @@ def split_target_and_feature(data, target):
     return data_target, data_features, target_name, feature_names
 
 
-
 def reset_index_train_test_split(feature_data, target_data, test_size=0.2, random_state=2022):
     features_train, features_test, target_train, target_test = train_test_split(feature_data, target_data, test_size=test_size, random_state=random_state)
 
@@ -53,8 +52,6 @@ def scale_data(train, test, scaler=None):
     return train_np, test_np, scaler
 
 
-
-
 def Encoder2DataFrame(data, column_name):
     ohe = OneHotEncoder()
     transformed = ohe.fit_transform(data[[column_name]])
@@ -63,5 +60,25 @@ def Encoder2DataFrame(data, column_name):
 
     dd_extra = pd.DataFrame(data=transformed.toarray(), columns=cats)
     return dd_extra, ohe
+
+
+def remove_columns(data, list_columns_to_remove):
+    for i in list_columns_to_remove:
+        try:
+            data = data.drop(i, axis=1)
+            print(f"{i} was removed")
+        except BaseException:
+            data = data
+    return data
+
+
+
+def check_variance(data):
+    for i in data.columns:
+        if data[i].std() < 0.01:
+            print(f"{i}: {data[i].std()}")
+
+
+
 
 

@@ -5,42 +5,52 @@
 import numpy as np
 import pandas as pd
 
+
 import plotly.express as px
 
 
-from sklearn.dummy import DummyClassifier
-from sklearn.metrics import balanced_accuracy_score
-
-from predictive_maintenance_hd.source.utility import (
+from predictive_maintenance_hd.source.data_utility import (
     split_target_and_feature,
     reset_index_train_test_split,
-    scale_data
+    scale_data,
+    Encoder2DataFrame,
+    remove_columns,
+    check_variance
 )
 
-from predictive_maintenance_hd.source.make_TSNE import (
-    make_TSNE_plot
+from predictive_maintenance_hd.source.graphics import (
+    make_TSNE_plot,
+    paretoplot,
+    correlationplot
 )
-
-from predictive_maintenance_hd.source.utility import (
-    Encoder2DataFrame
-)
-
 
 
 
 # load data
 
+
+
+# 7 days in advanced
 df = pd.read_csv("./predictive_maintenance_hd/data/df_2016_7.csv")
 
-df = pd.read_csv("./predictive_maintenance_hd/data/df_2016_0.csv")
+# 0 days in advanced
+# df = pd.read_csv("./predictive_maintenance_hd/data/df_2016_0.csv")
 
 
-cnames=list(df.columns)
-cnames
 
 
-df.shape  #9551, 27
-list(df.columns)
+# also use 10 days advanced data for new features
+
+# 10 days in advanced
+# df_10 = pd.read_csv("./predictive_maintenance_hd/data/df_2016_10.csv")
+
+
+
+
+
+check_variance(data=df)
+
+
 
 # some overview about the data
 df.describe()
@@ -55,9 +65,16 @@ df = df.dropna(axis=0)
 
 
 
+# column names
+
+cnames=list(df.columns)
+cnames
+
+
+
+
 # only one model kind
 list(set(list(df["model"])))    # ['ST4000DM000']
-
 
 
 
@@ -69,6 +86,18 @@ df["split_serial_number_1"] = df["serial_number"].str[:1]
 
 
 
+# making some plots
+
+# colorscale=px.colors.sequential.Bluered
+# colorscale=px.colors.diverging.Picnic
+
+correlationplot(data=df, 
+    colorscale=None, 
+    title="Correlations", 
+    hoferinfo=True, 
+    digits=3, 
+    annotation=False, 
+    plot=True)
 
 
 
@@ -86,32 +115,20 @@ for c_element in list(df.columns):
 
 
 
+# remove boring columns
 
 
-
-# remove date column, as loop
 list_of_columns_to_drop = ["date", "model", "capacity_bytes"]
-for i in list_of_columns_to_drop:
-    try: 
-        df = df.drop(i, axis=1)
-    except BaseException:
-        df = df
 
+df = remove_columns(df, list_columns_to_remove=list_of_columns_to_drop)
 
-
-# be sure date is out of df
-df = df.drop("date", axis=1)
-
-df.head()
-
-
-
+df
 
 
 
 
 # serial_number encoding
-
+list(df.columns)
 
 cnames_serial = [i for i in df.columns if "serial" in i]
 cnames_serial
@@ -130,48 +147,31 @@ dd_extra4.head()
 
 
 
-# list(dd_extra1.columns)
-# list(dd_extra3.columns)
-# list(dd_extra4.columns)
 
+# new df
 
-
-# new_df
-new_df = pd.concat([df, dd_extra1, dd_extra3, dd_extra4], axis=1)
-new_df
+df = pd.concat([df, dd_extra1, dd_extra3, dd_extra4], axis=1)
+df
 
 
 
 
+# remove  
 
-
-
-db = new_df
-
-
-
-
-# remove date serial_number columns: no categoric data
-
-cnames_serial
 list_of_columns_to_drop = ['serial_number', 'split_serial_number_3', 'split_serial_number_4', 'split_serial_number_1']
 
-for i in list_of_columns_to_drop:
-    try: 
-        db = db.drop(i, axis=1)
-    except BaseException:
-        db = db
-
-db.head()
+df = remove_columns(data=df, list_columns_to_remove=list_of_columns_to_drop)
 
 
+df.head()
 
 
 
 
 # Split date in feature and target data
 
-data_target, data_features, target_name, feature_names = split_target_and_feature(data=db, target="failure")
+data_target, data_features, target_name, feature_names = split_target_and_feature(data=df, target="failure")
+
 
 
 # split features and target data in train and test datasets
@@ -190,13 +190,14 @@ list(features_train.columns)
 
 
 
-
 #t-sne
 
 make_TSNE_plot(
     features=features_train, 
     target=target_train, 
     plot=True)
+
+
 
 
 
@@ -209,6 +210,24 @@ from sklearn.preprocessing import (
     StandardScaler,
     MinMaxScaler,
 )
+
+
+
+
+
+# Transformer
+
+MinMax_transformer = MinMaxScaler(feature_range=(0, 1))
+
+train_np, test_np, scaler = scale_data(train=features_train, test=features_test, scaler=MinMax_transformer)
+
+
+
+# Transformer
+
+MinMax_transformer = StandardScaler(with_mean=True, with_std=True)
+
+train_np, test_np, scaler = scale_data(train=features_train, test=features_test, scaler=MinMax_transformer)
 
 
 
@@ -247,6 +266,7 @@ features_test_bc = add_const(data=features_test, value=1)
 train_np, test_np, scaler = scale_data(train=features_train_bc, test=features_test_bc, scaler=powertransformer)
 
 
+# End box-cox transformation
 
 
 
@@ -264,7 +284,6 @@ dd
 
 
 
-
 # make some plots
 
 for c_element in list(dd.columns):
@@ -274,20 +293,15 @@ for c_element in list(dd.columns):
 
 
 
+
+# make TSNE for scaled data
+
 make_TSNE_plot(
     features=train_np, 
     target=target_train, 
     plot=True)
 
 
-
-
-
-# Transformer
-
-MinMax_transformer = MinMaxScaler()
-
-train_np, test_np, scaler = scale_data(train=features_train, test=features_test, scaler=MinMax_transformer)
 
 
 
@@ -301,86 +315,55 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.dummy import DummyClassifier
 
 from sklearn.gaussian_process.kernels import RBF
 
 
-model_names = [
-    "RFC", 
-    "AdaC", 
-    "MLPC", 
-    "KNC", 
-    "DTC",
-    "Dummy"
-    ]
-
-
-classifiers = [
-    RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
-    AdaBoostClassifier(base_estimator=None, n_estimators=50, learning_rate=1, algorithm="SAMME.R", random_state=None),
-    MLPClassifier(alpha=1, max_iter=1000),
-    KNeighborsClassifier(n_neighbors=5),
-    DecisionTreeClassifier(max_depth=5),
-    DummyClassifier(strategy="most_frequent")
-]
-
-
-output_df = pd.DataFrame(columns=["model_name", "r2_train", "r2_test", "bas_train", "bas_test"])
-output_df
-
-
-for count, value in enumerate(model_names):
-
-    print(f"count: {count}")
-
-
-    model = classifiers[count]
-    clf=model.fit(X= train_np, y=target_train)
-
-    r2_train=clf.score(train_np, target_train)  
-    r2_test=clf.score(test_np, target_test) 
-
-    bas_train=balanced_accuracy_score(target_train, clf.predict(train_np)) 
-    bas_test=balanced_accuracy_score(target_test, clf.predict(test_np)) 
-
-    dict = {"model_name": value,
-            "r2_train": r2_train,
-            "r2_test": r2_test,
-            "bas_train": bas_train,
-            "bas_test": bas_test
-        }
-
-    output_df = output_df.append(dict, ignore_index = True)
-
-    print(output_df)
 
 
 
 
-output_df
+model_dict = {
+    "RFC": RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+    "AdaC": AdaBoostClassifier(base_estimator=None, n_estimators=50, learning_rate=1, algorithm="SAMME.R", random_state=None),
+    "MLPC": MLPClassifier(alpha=1, max_iter=1000),
+    "KNC": KNeighborsClassifier(n_neighbors=5),
+    "DTC": DecisionTreeClassifier(max_depth=5),
+    "Dummy": DummyClassifier(strategy="most_frequent")
+}
 
-####
 
 
-count = 1
-value = "AdaC"
 
-model = classifiers[count]
+from predictive_maintenance_hd.source.model_evalution import (
+    model_evaluation
+)
+
+
+model_evaluation(model_dict, train_np, test_np, target_train, target_test)
+
+
+
+
+# pic one model
+key = "AdaC"
+model = model_dict[key]
 clf=model.fit(X= train_np, y=target_train)
+
 
 
 
 # # Explainability
 
+
+# bring feature and target data to gether in one dataframe
+
 test_dd = pd.concat([features_test, target_test], axis=1)
 # or
-test_dd = pd.concat([features_train, target_train], axis=1)
+train_dd = pd.concat([features_train, target_train], axis=1)
 
 
-
-test_dd
-feature_names
-target_name
 
 
 
@@ -389,20 +372,33 @@ target_name
 from predictive_maintenance_hd.source.feature_importance import (
     feature_importance
 )
-
-from predictive_maintenance_hd.source.pareto_plot import (
+from predictive_maintenance_hd.source.graphics import (
     paretoplot
 )
 
 
 
+# training data
+fi= feature_importance(trained_model=clf, df=train_dd, feature_columns=feature_names, target_column=target_name)
+fi
+
+
+# test data
 fi= feature_importance(trained_model=clf, df=test_dd, feature_columns=feature_names, target_column=target_name)
 fi
 
 
+# pareto with setting varialbles
+
 paretoplot(data=fi, column_of_names="feature", column_of_values="importance", yname="feature importance", plot=True)
 
+# pareto with default values
 paretoplot(data=fi, yname="feature importance", plot=True)
+
+
+
+
+
 
 
 
