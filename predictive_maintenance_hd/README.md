@@ -17,6 +17,9 @@ These Data have been prepared by Franziska Horn for one of her workshops. Thank 
 Here i will have a deeper look into these data to improve my prediction skills and make a better model than in your workshop. :)
 
 
+I did and therefor i like to have the way to do it as a walk through tutorial.
+
+
 
 Data to predict failures a week in advance are labeled with a suffix:
 
