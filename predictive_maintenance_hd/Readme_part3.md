@@ -282,6 +282,135 @@ When looking on the tsne plot with the box-cox scaler we see a better grouping o
 
 ![tsne2](./assets/tsne2.png)
 
+I guess, this clustering is good enough for making a first cluster model. 
+We make a screening of some cluster algorithms.
+
+```bash
+
+# classification models
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.gaussian_process import GaussianProcessClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.dummy import DummyClassifier
+
+from sklearn.gaussian_process.kernels import RBF
+
+
+# make a model dictionary
+model_dict = {
+    "RFC": RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+    "AdaC": AdaBoostClassifier(base_estimator=None, n_estimators=50, learning_rate=1, algorithm="SAMME.R", random_state=None),
+    "MLPC": MLPClassifier(alpha=1, max_iter=1000),
+    "KNC": KNeighborsClassifier(n_neighbors=5),
+    "DTC": DecisionTreeClassifier(max_depth=5),
+    "Dummy": DummyClassifier(strategy="most_frequent")
+}
+
+
+# load our customer evalution
+from predictive_maintenance_hd.source.model_evalution import (
+    model_evaluation
+)
+
+# and execute it
+model_evaluation(model_dict, train_np, test_np, target_train, target_test)
+
+```
+
+What we get is a small table with the r2 values for training and the test dataframe, also we calculate the balanced accurancy score.
+Compairing the models with the basic dummy model which is the most frequent.
+
+```bash
+
+# model_evaluation(model_dict, train_np, test_np, target_train, target_test)
+#   model_name  r2_train   r2_test  bas_train  bas_test
+# 0        RFC  0.927880  0.928310   0.590218  0.582317
+# 1       AdaC  0.957330  0.956044   0.780676  0.768766
+# 2       MLPC  0.948429  0.943485   0.729854  0.709408
+# 3        KNC  0.950916  0.939822   0.743379  0.701879
+# 4        DTC  0.959817  0.951334   0.786769  0.752377
+# 5      Dummy  0.912435  0.914181   0.500000  0.500000
+
+```
+
+All of our selected models are better than the dummy model. So, we perform better than the most frequent status. 
+
+
+
+We select the `AdaC` model and fit the model with the training data.
+We load the custom functions for feature importance and plotting a paretoplot.
+
+
+
+```bash
+
+# pic one model
+key = "AdaC"
+model = model_dict[key]
+clf=model.fit(X= train_np, y=target_train)
+
+# # Explainability
+# bring feature and target data to gether in one dataframe
+test_dd = pd.concat([features_test, target_test], axis=1)
+# or
+train_dd = pd.concat([features_train, target_train], axis=1)
+
+# Feature Importance
+
+from predictive_maintenance_hd.source.feature_importance import (
+    feature_importance
+)
+from predictive_maintenance_hd.source.graphics import (
+    paretoplot
+)
+
+# training data
+fi= feature_importance(trained_model=clf, df=train_dd, feature_columns=feature_names, target_column=target_name)
+fi
+
+# ### Model: AdaBoostClassifier(learning_rate=1)
+# # cross-validated score: 0.9560 +/- 0.0069
+# >>> fi
+#                feature  importance           std
+# 0          smart_9_raw       0.314  2.537716e-02
+# 1        smart_242_raw       0.168  2.400000e-02
+# 2        smart_241_raw       0.096  1.743560e-02
+# 3          smart_7_raw       0.080  2.000000e-02
+# 4        smart_193_raw       0.080  2.190890e-02
+# 5        smart_192_raw       0.060  8.944272e-03
+# 6        smart_240_raw       0.050  1.000000e-02
+# 7        smart_197_raw       0.024  8.000000e-03
+# 8          smart_5_raw       0.022  6.000000e-03
+# 9        smart_187_raw       0.020  3.469447e-18
+# 10  smart_3_normalized       0.018  6.000000e-03
+# 11       smart_189_raw       0.016  8.000000e-03
+# 12       smart_198_raw       0.016  8.000000e-03
+# 13       smart_194_raw       0.014  9.165151e-03
+# 14         smart_1_raw       0.012  1.326650e-02
+# 15       smart_190_raw       0.010  1.341641e-02
+
+
+
+# test data
+fi= feature_importance(trained_model=clf, df=test_dd, feature_columns=feature_names, target_column=target_name)
+fi
+
+# pareto with setting varialbles
+
+paretoplot(data=fi, column_of_names="feature", column_of_values="importance", yname="feature importance", plot=True)
+
+```
+
+A good way is to have a sorted dataframe for all features to see the importance. 
+
+A better way is to present these data as pareto plot to decrease the amount of features and to make a better selection of features.
+
+![paretoplot](./assets/pareto.png)
+
 
 
 
