@@ -23,6 +23,7 @@ I did and therefor i like to have the way to do it as a walk through tutorial.
 
 Data to predict failures a week in advance are labeled with a suffix:
 
+- 10 days in advanced: df_2016_10.csv
 - 7 days in advanced: df_2016_7.csv
 - 5 days in advanced: df_2016_5.csv
 

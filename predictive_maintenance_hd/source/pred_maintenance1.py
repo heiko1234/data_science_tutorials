@@ -77,6 +77,7 @@ cnames
 list(set(list(df["model"])))    # ['ST4000DM000']
 
 
+df["serial_number"]
 
 # Feature Engineering
 
@@ -157,6 +158,8 @@ df
 
 
 # remove  
+
+list_of_columns_to_drop = ["date", "model", "capacity_bytes"]
 
 list_of_columns_to_drop = ['serial_number', 'split_serial_number_3', 'split_serial_number_4', 'split_serial_number_1']
 
