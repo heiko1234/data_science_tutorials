@@ -32,6 +32,9 @@ Step by step we will grow our tool stack.
 
 - [mlflow](./mlflow_tutorial) will deal with basics of mlflow 
 
+- [dagster_pipeline](./dagster_pipeline) will deal with basics of dagster pipelines and usage azurite blobstorage
+
+- [dagster_mlflow_pipeline](./dagster_mlflow_pipeline) will deal with model training in a dagster pipeline
 
 - [polymer_process_improvement](./polymer_process_improvement/) will deal with a typical chemical process improvement 
 
@@ -46,10 +49,6 @@ Step by step we will grow our tool stack.
 - [data_preprocessing]
 
 - [dash_app]
-
-- [dagster_pipelines]
-
-- [dagster_mlflow_pipeline]
 
 - [quality_of_anodized_parts]
 
