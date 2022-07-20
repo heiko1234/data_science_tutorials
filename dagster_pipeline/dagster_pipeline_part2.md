@@ -14,6 +14,16 @@ from requests import get
 import time
 ```
 
+[Here](https://docs.cloud.coinbase.com/exchange/docs) we can find the API documentation.
+
+Don't worry, we only like to get the information from the exchange, which should be easy.
+
+We like to get the candle information and therefor have the query endpoint `"http://api.exchange.coinbase.com/products/{product_id}/candles"`
+for different product_id like `ETH-EUR`.
+
+So lets split this endpoint and make a small parse function for a more generic approach.
+
+When we get a 200 response, we have a success and need to make a dataframe out of it.
 
 
 
@@ -45,6 +55,14 @@ def parse_response(path):
         return response
 
 ```
+
+
+Ok, since we splitted the functionality to a response parsing function and a decoding function of the response, we need to have 
+a deeper look into the decoding function.
+
+We get a json back as response that we need to form to a dataframe, we also need to give it some column names.
+
+Moreover, we need to transform the time column, since it is UTC but we like to have it a local time zone.
 
 
 
@@ -98,10 +116,11 @@ def public_candles(product_id="ETH-EUR", start=None, end= None, granularity=None
 
     return df
 
-
-
-
 ```
+
+
+Ok, both functions are very simple and we should not concentrate to much on them since we like to do something with dagster :)
+
 
 
 
