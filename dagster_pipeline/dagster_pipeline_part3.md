@@ -175,7 +175,9 @@ Here we use a scheduler which is more or less a cron job implementation.
 
 We load our job and give some information to the scheduler decorator.
 
-The scheduler decorator 
+The scheduler decorator contain the job name, when it should be executed (like a cron job) and the pipeline name.
+
+The scheduler function is very easiy, we only give the information to the context of the ops that we need for execution.
 
 
 ```bash
@@ -214,21 +216,41 @@ def trigger_fetch_coinbase_data_execution(context: ScheduleEvaluationContext):
     }
     return output
 
-
 ```
 
 
 ## Repository
 
+The repository file we late on into dagit (dagster UI). 
+
+Everything that should be executed or at least loaded into dagit we should load in this file. 
+
+In this case we load the job and its trigger (scheduler) into the repository file.
 
 
+```bash
+
+from dagster import repository
+
+from pipelines.job_fetch_coinbase_data.job import (
+    job_fetch_coinbase_data
+)
+from pipelines.job_fetch_coinbase_data.trigger import (
+    trigger_fetch_coinbase_data_execution
+)
 
 
+@repository
+def data_pipeline():
+    """Dagster repository to run pipelines for project"""
 
 
+    return [
+        job_fetch_coinbase_data,
+        trigger_fetch_coinbase_data_execution
+    ]
 
-
-
+```
 
 
 
