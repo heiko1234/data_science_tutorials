@@ -36,6 +36,8 @@ Step by step we will grow our tool stack.
 
 - [dagster_mlflow_pipeline](./dagster_mlflow_pipeline) will deal with model training in a dagster pipeline
 
+## Chemical Process or technical Tutorials
+
 - [polymer_process_improvement](./polymer_process_improvement/) will deal with a typical chemical process improvement 
 
 - [pricing_management_of_chemical_supplier](./price_management/) will deal with an improvement on pricing of chemical goods.
