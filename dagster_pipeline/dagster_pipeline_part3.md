@@ -31,14 +31,14 @@ In *general* i like to store `utility` and `resource` functions.
 
 In *pipelines* we can have several `job` folders that contain usually `op.py`, `graph.py`, `job.py` and a `trigger.py`.
 
-Outise of the `pipelines` folder we need a `repository.py` file.
+Outside of the `pipelines` folder we need a `repository.py` file.
 
 Moreover we need a few standard things like `.env`, `poetry files` and a `.gitignore` file.
 
 
 ## Ops
 
-we need 2 ops: 
+We need 2 ops: 
 
 - load_coinbase_data
 - upload_data_to_blob_context
@@ -71,10 +71,9 @@ def load_coinbase_data(context):
 
     product_id = context.op_config["product_id"]
     granularity = context.op_config["granularity"]
+
     context.log.info(f"product_id: {product_id}")
     context.log.info(f"granularity: {granularity}")
-
-    # data = public_candles(product_id="ETH-EUR", start=None, end= None, granularity=None, localtime=True)
 
     data = public_candles(product_id=product_id, start=None, end= None, granularity=granularity, localtime=True)
 
@@ -84,7 +83,7 @@ def load_coinbase_data(context):
 
 ```
 
-To upload our resulted dataframe we use the `BlobStorageConnector` or the `upload_data_to_blob` functions.
+To upload our resulted small dataframe we use the `BlobStorageConnector` or better the `upload_data_to_blob` functions.
 
 We need to pass the blobcontainer, subblobcontainer and the filename to upload the df to the blobstorage (on azurite).
 
