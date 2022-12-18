@@ -22,7 +22,8 @@ The anodizing process is referred to as a Type II anodization, where the anodizi
 ## Team 
 
 You are alone.
-There is no Team around you, to help you.
+
+There is no Team around you.
 
 
 ## Defining the Process
@@ -40,11 +41,19 @@ Several possible variables on each process step have been identified.
 
 ## Framing the Problem
 
+Currently, the black anodizing process has very low daily yields, usually below 40 % and aerging 19 %. This results in high scrap and rework costs. 
+Also, the largst customer is threatening to find another supplier if quality and on-time delivery are not substantially improved. 
+In the past 6 months, scrap and rework costs have totaled approximately 450 k€ with on-time delivery below 60 %.
+
 ## KPI
 
 Improve the black anodized process yield from 19 % to  minium of 90 % (in 6 month).
 This KPI is the lot-by-lot yield. 
 
+
+## Scope
+
+The project will address only the black anodizing process. All other manufacturing steps are out of scope for this project.
 
 
 [Part2](./Readme_part2.md)
