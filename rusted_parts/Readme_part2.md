@@ -13,7 +13,19 @@ Maybe we will try to fetch data from Microsoft Kusto via Graph based main proces
 
 ## Quality Parameters
 
+there are four continous CTQs for the anodizing process: 
+anodized coating thickness and the treee color coordinates. 
+
 ### CILAB
+
+![cielab](./assets/cielab_colorspace.png)
+
+*L** is a measure of lightness of the color (the range is 0 - 100), with lower values indicating darker color
+
+*a** is a measure of red/green. Positiv values indicate redness and negative values indicate greeness.
+
+*b** is a measure of yellow/blue. Positiv values indicate yellowness and negative values indicate blueness.
+
 
 ### MSA Backscatter Gauge
 

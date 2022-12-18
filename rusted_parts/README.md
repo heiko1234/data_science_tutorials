@@ -22,7 +22,7 @@ The anodizing process is referred to as a Type II anodization, where the anodizi
 ## Team 
 
 You are alone.
-There is no Team around you to help you.
+There is no Team around you, to help you.
 
 
 ## Defining the Process
