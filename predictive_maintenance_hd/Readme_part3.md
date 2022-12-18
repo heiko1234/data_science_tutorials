@@ -415,3 +415,5 @@ A better way is to present these data as pareto plot to decrease the amount of f
 
 
 [Part4](./Readme_part4.md)
+
+[Start again](./README.md)

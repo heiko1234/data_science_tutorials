@@ -44,6 +44,7 @@ Step by step we will grow our tool stack.
 
 - [predictive_maintenance_hd](./predictive_maintenance_hd/) will deal with an data preprocessing and a model suitable for failure detection.
 
+- [quality_of_anodized_parts](./rusted_parts/) will deal with graph data and process optimization.
 
 
 ## Tutorials in planing:
@@ -52,7 +53,7 @@ Step by step we will grow our tool stack.
 
 - [dash_app]
 
-- [quality_of_anodized_parts]
+
 
 
 

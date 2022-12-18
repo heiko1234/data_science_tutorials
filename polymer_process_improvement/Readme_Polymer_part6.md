@@ -57,3 +57,6 @@ The target **KPI**s like *MFI* and *CI* are very narrow monitored and with in it
 
 ## Used Literatur
 - Visual Six Sigma, Wiley, 2016, Ian Cox, Marie A. Gaudard, Mia L. Stephens
+
+
+[Start again](./README.md)
