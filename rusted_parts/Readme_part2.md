@@ -16,7 +16,21 @@ Maybe we will try to fetch data from Microsoft Kusto via Graph based main proces
 there are four continous CTQs for the anodizing process: 
 anodized coating thickness and the treee color coordinates. 
 
-### CILAB
+## Critical to Qualit (CTQ)
+
+There are 4 continuous measured quality aspects:
+
+- coating thickness
+- 3 clor coordinates
+
+These things are measured with 3 different measurement systems:
+
+- backscatter gauge
+- spectrophotometer
+- vsiual color inspction rating that classifies parts as good or bad
+
+
+### CIELAB
 
 ![cielab](./assets/cielab_colorspace.png)
 
@@ -28,6 +42,22 @@ anodized coating thickness and the treee color coordinates.
 
 
 ### MSA Backscatter Gauge
+
+The Backscatter Gauge is to measure thickness.
+
+1 Gauge is used but up to 12 operators may measure.
+
+
+The MSA is preformed with:
+- 1 gauge
+- 3 random operators (out of 12)
+- 5 random parts (which are measured twice)
+
+This will be done with a DOE Full Factorial Design. The study will be performed in a complete random order.
+
+We will make a Multi-Vari plot.
+
+
 
 ### MSA Visual Color Rating
 
