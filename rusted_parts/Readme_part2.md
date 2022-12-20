@@ -59,6 +59,31 @@ We will make a Multi-Vari plot.
 
 [Here](./source/multi_vari.py) are the basic plot functions, while [here](./source/usage_multi_vari.py) is the usage of the functions.
 
+
+```bash 
+
+# Here very simple function usage
+
+import pandas as pd
+
+from rusted_parts.source.multi_vari import (
+    make_muti_vari_plot,
+    multi_vari_plot
+)
+
+data = pd.read_excel("./rusted_parts/data/Thickness_MSA.xlsx")
+
+make_muti_vari_plot(
+    data=thickness_data,
+    operator="Operator",
+    part="Part",
+    parameter="Thickness",
+    )
+
+```
+
+
+
 This are the data of the MSA:
 
 ![data_gauge](./assets/data_msa_gauge.png)
@@ -103,7 +128,7 @@ total variability --|           reproduibility--|
 
 ```
 
-When using the [Gage_RnR](./source/Gage_RandR.py) we can generate the graphics but also this table: 
+When using the [Gage_RnR](./source/Gage_RandR.py) we can generate the graphics but also this table [usage_gage_rnr](./source/usage_gage_randr): 
 
 ```bash
 
