@@ -128,7 +128,7 @@ total variability --|           reproduibility--|
 
 ```
 
-When using the [Gage_RnR](./source/Gage_RandR.py) we can generate the graphics but also this table [usage_gage_rnr](./source/usage_gage_randr): 
+When using the [Gage_RnR](./source/Gage_RandR.py) we can generate the graphics but also this table [usage_gage_rnr](./source/usage_gage_randr.py): 
 
 ```bash
 
@@ -187,7 +187,36 @@ The metrology department and a few operators worked together to design a fixture
 
 
 
+According to these changes a new measurement with the operators with 5 new parts is performed
+[Here](./data/Thickness_MSA_2.xlsx) are the data.
 
+
+![multi_vari_plot_msa2](./assets/multi_vari_plot_msa2.png)
+
+Now, we also can overlay the plots: 
+
+![multi_vari_overlay](./assets/multi_vari_overlay.png)
+
+
+We also get these values out of the Gage R&R: 
+
+The Gage R&R value of 0.0000024 (= 0.024 * 10^-3 units = 0.012 * 10^-3 sigma) which seems to be more sufficient than 0.089 as we have seen before. 
+
+```bash
+
+                    names    variations  percent of total
+0                Gage R&R  2.416667e-06             0.003
+1           Repeatability  5.333333e-07             0.001
+2         Reproducibility  1.883333e-06             0.002
+3   Interaction Variation  1.666667e-06             0.002
+4  part-to-part Variation  7.994006e-02            99.995
+5         Total Variation  7.994414e-02           100.000
+
+```
+
+This indicates that the measurement system will easily distinguish parts that differ by 0.1 thousandths. 
+
+Now, the *Thickness* measurement process is extremely capablet.
 
 
 ### MSA Visual Color Rating
