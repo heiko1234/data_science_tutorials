@@ -99,7 +99,7 @@ When using the [Gage_RnR](./source/Gage_RandR.py) we can generate the graphics b
 
 **Repeatablity**: Repeated easurements of the same part by the same operator with the same instruments
 
-**Reproducibility**: Repeated measurements of the same part by different operators using different instruments
+**Reproducability**: Repeated measurements of the same part by different operators using different instruments
 
 **part-to-part Variation**: Differences in the parts used in the MSA: here parts are represented by batches
 
