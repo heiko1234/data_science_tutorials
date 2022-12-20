@@ -221,6 +221,41 @@ Now, the *Thickness* measurement process is extremely capablet.
 
 ### MSA Visual Color Rating
 
+At this point, we focus on the improvement of the manual color rating.
+Different root-causes produce different bad colors.
+
+```bash
+
+                color rating
+                    |
+            ------------------
+            |                |
+           good             bad
+            |                |
+        normal black     -----------------
+                        |                 |
+                    purple black     smutty black
+
+```
+
+There are 8 different inspectors involved in the inspectio, 3 are randomly choosen.
+50 random parts from production are taken, with minimum of 12 each of *normal black*, *purple black* and *smutty black*
+
+
+To prove that the inspectors have labeled the parts correctly, an expert is choosen to make the final classification.
+
+
+For this MSA the consensus of classification of 2 inspectors will be considered correct and will be used to evaluate the accuracy of the inspectors.
+
+We choose: Hal, Carly and Jake as inspectors (3 out of 8)
+
+Each part is inspected twice.
+
+
+## Kappa , Agreement Comparison
+
+First we will focus on the kappa criterion in the agreement comparison.
+A Kappa value of > 0.80 reflects almost perfect agreement, while a kappa of 0.60 - 0.80 indicates substantial agreement.
 
 
 
