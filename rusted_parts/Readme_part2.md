@@ -238,7 +238,7 @@ Different root-causes produce different bad colors.
 
 ```
 
-There are 8 different inspectors involved in the inspectio, 3 are randomly choosen.
+There are 8 different inspectors involved in the inspection, 3 are randomly choosen.
 50 random parts from production are taken, with minimum of 12 each of *normal black*, *purple black* and *smutty black*
 
 
@@ -257,7 +257,7 @@ Each part is inspected twice.
 First we will focus on the kappa criterion in the agreement comparison.
 A Kappa value of > 0.80 reflects almost perfect agreement, while a kappa of 0.60 - 0.80 indicates substantial agreement.
 
-We calculate the inter rater comparison with [this](./source/usage_agreement.py)
+We calculate the inter rater comparison with [this](./source/usage_agreement.py) while the data are [here](./data/AttributeMSA.xlsx)
 
 ```bash
 list_of_raters= ["Hal", "Carly", "Jake"]
@@ -299,23 +299,32 @@ misclassifications(data=data, list_of_rater=list_of_raters, expert="Expert Ratin
 We have room for improvements, as Hal has and Carly are blow 90% compared to the expert and there are several missmatches compared to the expert rating.
 
 
+### Baseline
 
-## Data Collection
+The anodize process is usually run in lots of 100 parts.
 
+Typically only one lot is run per day. 
 
+For various reasons a complete lot of 100 parts is not available.
 
+Only those parts classified by the inspectors as *Normal Black* are considered acceptable.
 
+The project KPI (Yield) is defned as the number of *Normal Black parts* divided by the lot size (it is the ratio). 
 
+We make a "simple" controlchart for the Yield and the moving_range (2 Points: max-min)
+![Yield](./assets/Yield.png)
+![Moving_Range](./assets/moving_range.png)
 
+The average of the yield is: 18.7 % and the average of the moving range is: 13.16 %.
+Both values are not very high.
 
-
-
-
-
-
-
+We will concentrate to improve on common causes. It should be easy to improve from such a low level, while the target (> 90 %) is still a big step to go.
 
 
 [Part3](./Readme_part3.md)
+
+
+
+
 
 
