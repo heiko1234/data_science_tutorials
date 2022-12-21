@@ -252,10 +252,51 @@ We choose: Hal, Carly and Jake as inspectors (3 out of 8)
 Each part is inspected twice.
 
 
-## Kappa , Agreement Comparison
+## Kappa or the Agreement Comparison
 
 First we will focus on the kappa criterion in the agreement comparison.
 A Kappa value of > 0.80 reflects almost perfect agreement, while a kappa of 0.60 - 0.80 indicates substantial agreement.
+
+We calculate the inter rater comparison with [this](./source/usage_agreement.py)
+
+```bash
+list_of_raters= ["Hal", "Carly", "Jake"]
+
+inter_rating(data=data, list_of_rater=list_of_raters)
+
+
+  rater1 rater2   kappa
+0    Hal  Carly  0.7265
+1    Hal   Jake  0.7274
+2  Carly   Jake  0.8184
+```
+
+
+and also the comparison with the external standard (external expert):
+
+```bash
+expert_rating(data = data, list_of_rater=list_of_raters, expert="Expert Rating")
+
+
+  rater1         expert   kappa
+0    Hal  Expert Rating  0.8023
+1  Carly  Expert Rating  0.8635
+2   Jake  Expert Rating  0.9242
+```
+
+We also calculate the misclassifications of all test raters to the external standard: 
+
+```bash
+misclassifications(data=data, list_of_rater=list_of_raters, expert="Expert Rating", part="Part")
+
+
+  Normal Rating  Normal Black  Purple/Black  Smutty Black
+0  Normal Black           NaN           7.0           7.0
+1  Purple/Black           8.0           NaN           1.0
+2  Smutty Black           4.0           NaN           NaN
+```
+
+We have room for improvements, as Hal has and Carly are blow 90% compared to the expert and there are several missmatches compared to the expert rating.
 
 
 
