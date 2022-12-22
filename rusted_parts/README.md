@@ -20,7 +20,10 @@ Unless the aluminium part company cannot improve yield and optimize the quality,
 
 ## A bit of chemistry
 
-The anodizing process is referred to as a Type II anodization, where the anodizin is done in a sulfuric acid bath. The parts are suspended in the acid bath and a direct current is appplied in such a way that the parts become the anodes of an electrolytic cell. Oxygen is generated on the surfaces of the aluminium parts, causing a building of aluminium oxide . The parameters used in the anodizing process not only have a significant mpact on the coating thinckness but also affect the shape and size of pores that form in the coating. This in turn affects the ability of the anodized surface to retain dye or other coatings.
+The anodizing process is referred to as a Type II anodization, where the anodizin is done in a sulfuric acid bath. The parts are suspended in the acid bath and a direct current is appplied in such a way that the parts become the anodes of an electrolytic cell. Oxygen is generated on the surfaces of the aluminium parts, causing a building of aluminium oxide . The parameters used in the anodizing process not only have a significant impact on the coating thinckness but also affect the shape and size of pores that form in the coating. This in turn affects the ability of the anodized surface to retain dye or other coatings.
+
+![anodizing_part](./assets/Aluminum-Anodizing-Cost-02.png)
+[Literature](https://waykenrm.com/blogs/anodizing-aluminum-cost/)
 
 
 ## Types of Anodizing Aluminum Processes Available
