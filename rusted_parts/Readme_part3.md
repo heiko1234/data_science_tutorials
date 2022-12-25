@@ -16,7 +16,7 @@ The idea is to produce in the "optimal" process window.
 Yet, there are no specifiation limits for *Thickness*, *L**, *a** and *b**. 
 
 
-### Action Plan:
+## Action Plan:
 
 1. Find Relationship between Color Rating and *Thickness*, *L**, *a** and *b**.
 
@@ -31,6 +31,17 @@ We have to replace the string classification in the dataframe by a number. (0 = 
 
 ```bash
 
+import pandas as pd
+import plotly
+import plotly.express as px
+
+
+data = pd.read_excel("./data/Anodize_ColorData.xlsx")
+
+data
+list(data.columns)
+# ['Lot', 'Color Rating ', 'Thickness', 'L*', 'a*', 'b*']
+
 exchange_dict = {"Normal Black": 0, "Smutty Black": 1, "Purple/Black": 2}
 
 data["color rating dict"] = data['Color Rating '] 
@@ -38,11 +49,22 @@ data["color rating dict"] = data["color rating dict"].replace(exchange_dict)
 
 data["color rating dict"] = [int(element) for element in data["color rating dict"]]
 
+fig = None
+
+fig = px.parallel_coordinates(
+    data, 
+    color="color rating dict",
+    dimensions=['color rating dict', 'Thickness', 'L*', 'a*', "b*"],
+    # color_continuous_scale=px.colors.diverging.Tealrose
+)
+
+plotly.offline.plot(fig)
+
 ```
 
 ![Overall_Correlation](./assets/Overall_correlation.png)
 
-It is also easy to set the specification limits to almost obtain classification level 0 (Normal Black). 
+It is also easy to set the specification limits to almost obtain classification level 0 (Normal Black). If you make the plotly graphic you can interact with it in the internet browser to play with the limits.
 
 ![Overall_Limits](./assets/Overall_Spezification.png)
 
@@ -55,13 +77,13 @@ I would assume the specification limits like this, to have good normal black par
 
 ```bash
 
-| Variable   | Target | Spez. Range |
--------------------------------------
-| Thickness  |  0.85  |    0.15     |
-|    L*      |  9.75  |    1.75     |
-|    a*      |  1.5   |    1.5      |
-|    b*      |  0.0   |    1.5      |
--------------------------------------
+| Variable   | Target | Spez. Range |     Range    |
+----------------------------------------------------
+| Thickness  |  0.85  |    0.15     |   1.0 - 0.7  |
+|    L*      |  9.75  |    1.75     |  11.5 - 8.0  |
+|    a*      |  1.5   |    1.5      |   3.0 - 0.0  |
+|    b*      |  0.0   |    1.5      |   1.5 - -1.5 |
+----------------------------------------------------
 
 ```
 
