@@ -343,8 +343,6 @@ model_b= get_mlflow_model(model_name=Rusted_models[3], azure=True)
 
 
 
-
-
 def create_bounds_list(names_order, bounds_dict):
     return [bounds_dict[element] for element in names_order]
 
@@ -426,13 +424,6 @@ new_setpoints = genetic_algorithm(
 new_setpoints
 
 # >>> new_setpoints
-# [79.49158, 6.3125, 11.24733, 39.63501, 204.45259]
-
-
-# >>> new_setpoints
-# [83.96988, 6.47661, 11.9091, 39.36707, 204.99947]
-
-# >>> new_setpoints
 # [76.875, 5.59777, 11.26228, 37.19238, 204.93858]
 
 
@@ -444,6 +435,8 @@ testdata = create_testdata(AT=79.5, DpH=6.3, DC=11.2, At=39.6, AC=204.4)
 
 # or these data
 testdata= create_testdata(AT=new_setpoints[0], DpH=new_setpoints[1], DC=new_setpoints[2], At=new_setpoints[3], AC=new_setpoints[4])
+
+# Make the modelling part
 testdata["Thickness_pred"]= model_Thickness.predict(testdata)
 testdata["L_pred"]= model_L.predict(testdata)
 testdata["a_pred"]= model_a.predict(testdata)
